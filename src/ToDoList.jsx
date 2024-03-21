@@ -84,7 +84,7 @@ function ToDoList() {
                 ))}
             </div>
 
-            <div>
+            <div className="newTaskForm">
                 <input
                     type="text"
                     placeholder="Enter a task"
@@ -95,7 +95,6 @@ function ToDoList() {
                 <button type="button" className="add-buton" onClick={handleSubmit}>
                     Add Task
                 </button>
-
             </div>
         </>
     );

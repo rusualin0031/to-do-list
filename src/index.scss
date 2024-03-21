@@ -23,5 +23,26 @@
     }
 }
 
+.newTaskForm {
+    width: 300px;
+    display: flex;
+    align-items: center;
+
+    input {
+        flex: 1;
+        margin-right: 5px;
+        line-height: 19px;
+    }
+
+    button {
+        background: green;
+        color: white;
+        border: 0;
+        border-radius: 3px;
+        cursor: pointer;
+        line-height: 23px;
+    }
+}
+
 
 
