@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 function ToDoList() {
     const [input, setInput] = useState("");
@@ -26,8 +26,19 @@ function ToDoList() {
         ...tasks,
         newTask
       ]);
-        setInput("");
+      setInput("");
     }
+
+    useEffect( () => {
+      const tasks = localStorage.getItem('tasks');
+      if (tasks) {
+        setTasks(JSON.parse(tasks));
+      }
+    }, []);
+
+    useEffect(() => {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
 
     const handleChangeIsChecked = (task, isChecked) => {
       const newTasks = tasks.map((t) => {
@@ -41,8 +52,6 @@ function ToDoList() {
       });
       setTasks(newTasks);
     }
-
-    console.log({tasks});
 
     return(
         <>
