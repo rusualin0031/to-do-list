@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 
+
+
 function ToDoList() {
     const [input, setInput] = useState("");
     const [tasks, setTasks] = useState([]);
@@ -13,6 +15,13 @@ function ToDoList() {
         if (event.key === "Enter") {
             handleSubmit();
         }
+    }
+
+    const handleDeleteTask = (task) => {
+        const newTasks = tasks.filter(
+            (t) => t !== task
+        ) 
+          setTasks(newTasks);
     }
 
     const handleSubmit = () => {
@@ -61,13 +70,13 @@ function ToDoList() {
 
             {tasks.map((task, index) => (
                 <div key={index}>
-                    <input type="checkbox" onChange={(ev) => {
+                    <input type="checkbox" checked={task.isChecked} onChange={(ev) => {
                       handleChangeIsChecked(task, ev.target.checked);
                     }} />
-                    <span>
-                      {task.label}
-                      {task.isChecked ? " (done)" : ""}
-                    </span>
+                    <span>{task.label}</span>
+                    <button type="button" onClick={ () => {
+                        handleDeleteTask(task)
+                    } }>Delete</button>
                 </div>
             ))}
 
@@ -79,9 +88,10 @@ function ToDoList() {
                     onChange={handleInputChange}
                     onKeyUp={handleKeyUp}
                 />
-                <button className="add-buton" onClick={handleSubmit}>
+                <button type="button" className="add-buton" onClick={handleSubmit}>
                     Add Task
                 </button>
+
             </div>
         </>
     );
