@@ -18,11 +18,14 @@ function ToDoList() {
     }
 
     const handleDeleteTask = (task) => {
-        const newTasks = tasks.filter(
-            (t) => t !== task
-        ) 
-          setTasks(newTasks);
-    }
+        if (window.confirm("Do you really want to leave?")) {
+            const newTasks = tasks.filter(
+                (t) => t !== task
+            ) 
+            setTasks(newTasks);
+        }
+     }
+        
 
     const handleSubmit = () => {
       if(input.trim() === '') return;
