@@ -70,18 +70,19 @@ function ToDoList() {
             <div className="to-do-list">
                 <h1>To-Do-List</h1>
             </div>
-
-            {tasks.map((task, index) => (
-                <div key={index}>
-                    <input type="checkbox" checked={task.isChecked} onChange={(ev) => {
-                      handleChangeIsChecked(task, ev.target.checked);
-                    }} />
-                    <span>{task.label}</span>
-                    <button type="button" onClick={ () => {
-                        handleDeleteTask(task)
-                    } }>Delete</button>
-                </div>
-            ))}
+            <div className="toDoListItems">
+                {tasks.map((task, index) => (
+                    <div className="toDoListItem" key={index}>
+                        <input type="checkbox" checked={task.isChecked} onChange={(ev) => {
+                        handleChangeIsChecked(task, ev.target.checked);
+                        }} />
+                        <span className="itemLabel">{task.label}</span>
+                        <button type="button" onClick={ () => {
+                            handleDeleteTask(task)
+                        } }>Delete</button>
+                    </div>
+                ))}
+            </div>
 
             <div>
                 <input
