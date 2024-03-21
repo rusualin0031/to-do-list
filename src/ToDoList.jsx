@@ -16,9 +16,31 @@ function ToDoList() {
     }
 
     const handleSubmit = () => {
-        setTasks([...tasks, input]);
+      const newTask = {
+        label: input.trim(),
+        isChecked: false,
+      };
+      setTasks([
+        ...tasks,
+        newTask
+      ]);
         setInput("");
     }
+
+    const handleChangeIsChecked = (task, isChecked) => {
+      const newTasks = tasks.map((t) => {
+        if (t === task) {
+          return {
+            label: task.label,
+            isChecked: isChecked,
+          };
+        }
+        return t;
+      });
+      setTasks(newTasks);
+    }
+
+    console.log({tasks});
 
     return(
         <>
@@ -28,8 +50,13 @@ function ToDoList() {
 
             {tasks.map((task, index) => (
                 <div key={index}>
-                    <input type="checkbox" />
-                    <span>{task}</span>
+                    <input type="checkbox" onChange={(ev) => {
+                      handleChangeIsChecked(task, ev.target.checked);
+                    }} />
+                    <span>
+                      {task.label}
+                      {task.isChecked ? " (done)" : ""}
+                    </span>
                 </div>
             ))}
 
