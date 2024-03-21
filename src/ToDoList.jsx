@@ -1,28 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function ToDoList() {
+    const [input, setInput] = useState("");
+    const [tasks, setTasks] = useState([]);
+    // const [newTask, setNewTask] = useState("");
 
-    const [tasks, setTask] = useState([]);
-    const [newTask, setNewTask] = useState("");
-
-    function handleInputChange(event) {
-        setNewTask(event.target.value);
+    const handleInputChange = (event) => {
+        setInput(event.target.value);
     }
 
-    function addTask() {
-
+    const handleKeyUp = (event) => {
+        if (event.key === "Enter") {
+            handleSubmit();
+        }
     }
 
-    function deleteTask(index) {
-
-    }
-
-    function moveTaskUp(index) {
-
-    }
-
-    function moveTaskDown(index) {
-
+    const handleSubmit = () => {
+        setTasks([...tasks, input]);
+        setInput("");
     }
 
     return(
@@ -31,13 +26,22 @@ function ToDoList() {
                 <h1>To-Do-List</h1>
             </div>
 
+            {tasks.map((task, index) => (
+                <div key={index}>
+                    <input type="checkbox" />
+                    <span>{task}</span>
+                </div>
+            ))}
+
             <div>
-                <input type="text" 
-                    placeholder="Enter a task" 
-                    value={newTask} 
+                <input
+                    type="text"
+                    placeholder="Enter a task"
+                    value={input}
                     onChange={handleInputChange}
+                    onKeyUp={handleKeyUp}
                 />
-                <button className="add-buton">
+                <button className="add-buton" onClick={handleSubmit}>
                     Add Task
                 </button>
             </div>
