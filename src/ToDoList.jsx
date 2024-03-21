@@ -16,6 +16,8 @@ function ToDoList() {
     }
 
     const handleSubmit = () => {
+      if(input.trim() === '') return;
+
       const newTask = {
         label: input.trim(),
         isChecked: false,
