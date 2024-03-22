@@ -70,6 +70,18 @@ function ToDoList() {
             <div className="to-do-list">
                 <h1>To-Do-List</h1>
             </div>
+            <div className="newTaskForm">
+                <input
+                    type="text"
+                    placeholder="Enter a task"
+                    value={input}
+                    onChange={handleInputChange}
+                    onKeyUp={handleKeyUp}
+                />
+                <button type="button" className="add-buton" onClick={handleSubmit}>
+                    Add Task
+                </button>
+            </div>
             <div className="toDoListItems">
                 {tasks.map((task, index) => (
                     <div className="toDoListItem" key={index}>
@@ -82,19 +94,6 @@ function ToDoList() {
                         } }>Delete</button>
                     </div>
                 ))}
-            </div>
-
-            <div className="newTaskForm">
-                <input
-                    type="text"
-                    placeholder="Enter a task"
-                    value={input}
-                    onChange={handleInputChange}
-                    onKeyUp={handleKeyUp}
-                />
-                <button type="button" className="add-buton" onClick={handleSubmit}>
-                    Add Task
-                </button>
             </div>
         </>
     );
