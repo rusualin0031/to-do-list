@@ -1,48 +1,65 @@
-
-.toDoListItems{
-    .toDoListItem{
-        width: 300px;
-        padding: 10px 4px;
+.toDoListItems {
+    .toDoListItem {
+        width: 500px;
+        padding: 15px;
         border-bottom: 1px solid #eee;
         display: flex;
         align-items: center;
-    
-        button{
+
+        button {
             background: red;
             color: white;
             border: 0;
-            border-radius: 3px;
+            border-radius: 5px;
             cursor: pointer;
+            padding: 10px;
+            margin-left: auto; // Muove il bottone all'estrema destra
+            transition: background 0.3s ease;
+
+            &:hover {
+                background: darkred;
+            }
         }
-        
-        .itemLabel{
+
+        .itemLabel {
             flex: 1;
-            padding-left: 5px;
+            padding-left: 15px;
             font-weight: bold;
+            cursor: pointer; // Aggiungi un cursore puntatore quando si passa sopra il testo dell'attività
         }
     }
 }
 
 .newTaskForm {
-    width: 300px;
+    width: 520px;
     display: flex;
     align-items: center;
 
     input {
         flex: 1;
-        margin-right: 5px;
-        line-height: 19px;
+        margin-right: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+
+        &:focus {
+            outline: none;
+            border-color: dodgerblue; // Cambia il colore del bordo quando l'input ha lo stato di focus
+        }
     }
 
     button {
         background: green;
         color: white;
         border: 0;
-        border-radius: 3px;
+        border-radius: 5px;
         cursor: pointer;
-        line-height: 23px;
+        padding: 10px 20px;
+        transition: background 0.3s ease;
+
+        &:hover {
+            background: darkgreen;
+        }
     }
 }
-
-
-
