@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 function ToDoList() {
     const [input, setInput] = useState("");
     const [tasks, setTasks] = useState([]);
+    const [editingTask, setEditingTask] = useState();
     // const [newTask, setNewTask] = useState("");
 
     const handleInputChange = (event) => {
