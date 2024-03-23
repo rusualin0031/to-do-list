@@ -85,7 +85,7 @@ function ToDoList() {
     }
 
     const handleDragEnd = (result) => {
-        if (!result.destination) return; // dropped outside the list
+        if (!result.destination) return;
         const newTasks = Array.from(tasks);
         const [reorderedTask] = newTasks.splice(result.source.index, 1);
         newTasks.splice(result.destination.index, 0, reorderedTask);
