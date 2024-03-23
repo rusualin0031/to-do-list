@@ -115,13 +115,13 @@ function ToDoList() {
                                 <div {...provided.droppableProps} ref={provided.innerRef} className="toDoListItems">
                                     {tasks.map((task, index) => (
                                         <Draggable key={index} draggableId={index.toString()} index={index}>
-                                            {(provided) => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    className="toDoListItem"
-                                                >
+                                        {(provided, snapshot) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className={`toDoListItem ${snapshot.isDragging ? 'dragging' : ''}`}
+                                            >
                                                     <input type="checkbox" checked={task.isChecked} onChange={(ev) => handleChangeIsChecked(task, ev.target.checked)} />
                                                     {editingTask === task ? (
                                                         <>
