@@ -85,49 +85,51 @@ function ToDoList() {
 
     return (
         <>
-            <div className="to-do-list">
-                <h1>To-Do-List</h1>
-            </div>
-            <div className="newTaskForm">
-                <input
-                    type="text"
-                    placeholder="Enter a task"
-                    value={input}
-                    onChange={handleInputChange}
-                    onKeyUp={handleKeyUp}
-                />
-                <button type="button" className="add-buton" onClick={handleSubmit}>
-                    Add Task
-                </button>
-            </div>
-            <div className="toDoListItems">
-                {tasks.map((task, index) => (
-                    <div className="toDoListItem" key={index}>
-                        <input type="checkbox" checked={task.isChecked} onChange={(ev) => handleChangeIsChecked(task, ev.target.checked)} />
-                        {editingTask === task ? (
-                            <>
-                                <input
-                                    type="text"
-                                    value={editedTaskLabel}
-                                    onChange={(e) => setEditedTaskLabel(e.target.value)}
-                                    onBlur={() => handleSaveEdit(task, editedTaskLabel)}
-                                    onKeyUp={(e) => {
-                                        if (e.key === 'Enter') {
-                                            handleSaveEdit(task, editedTaskLabel);
-                                        }
-                                    }}
-                                />
-                                <button onClick={() => handleSaveEdit(task, editedTaskLabel)}>Save</button>
-                            </>
-                        ) : (
-                            <>
-                                <span className="itemLabel">{task.label}</span>
-                                <button className="button-edit" onClick={() => handleEditButtonClick(task)}>Edit</button>
-                                <button className="button-delete" onClick={() => handleDeleteTask(task)}>Delete</button>
-                            </>
-                        )}
+            <div className="container">
+                <div className="card">
+                    <h1>To-Do-List</h1> 
+                    <div className="newTaskForm">
+                        <input
+                            type="text"
+                            placeholder="Enter a task"
+                            value={input}
+                            onChange={handleInputChange}
+                            onKeyUp={handleKeyUp}
+                        />
+                        <button type="button" className="add-buton" onClick={handleSubmit}>
+                            Add Task
+                        </button>
                     </div>
-                ))}
+                    <div className="toDoListItems">
+                        {tasks.map((task, index) => (
+                            <div className="toDoListItem" key={index}>
+                                <input type="checkbox" checked={task.isChecked} onChange={(ev) => handleChangeIsChecked(task, ev.target.checked)} />
+                                {editingTask === task ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={editedTaskLabel}
+                                            onChange={(e) => setEditedTaskLabel(e.target.value)}
+                                            onBlur={() => handleSaveEdit(task, editedTaskLabel)}
+                                            onKeyUp={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    handleSaveEdit(task, editedTaskLabel);
+                                                }
+                                            }}
+                                        />
+                                        <button onClick={() => handleSaveEdit(task, editedTaskLabel)}>Save</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="itemLabel">{task.label}</span>
+                                        <button className="button-edit" onClick={() => handleEditButtonClick(task)}>Edit</button>
+                                        <button className="button-delete" onClick={() => handleDeleteTask(task)}>Delete</button>
+                                    </>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </>
     );
