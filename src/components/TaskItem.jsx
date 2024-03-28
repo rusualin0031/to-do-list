@@ -18,9 +18,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         setEditedTaskLabel(task.label);
         setEditingTask(null);
     }
-
-    console.log(editedTaskLabel, task.label)
-
+    
     const isEditing = editingTask === task;
 
     return (
