@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import TaskItem from "./TaskItem";
+import { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
+import DndContainer from "./DndContainer.jsx";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -76,25 +75,15 @@ function ToDoList() {
                 <div className="card">
                     <h1>To-Do-List</h1>
                     <TaskForm onSubmit={handleSubmit} />
-                    <DragDropContext onDragEnd={handleDragEnd}>
-                        <Droppable droppableId="tasks">
-                            {(provided) => (
-                                <div {...provided.droppableProps} ref={provided.innerRef} className="toDoListItems">
-                                    {currentTasks.map((task, index) => (
-                                        <TaskItem
-                                            key={index}
-                                            task={task}
-                                            index={index}
-                                            onDelete={handleDeleteTask}
-                                            onChangeIsChecked={handleChangeIsChecked}
-                                            onSaveEdit={handleSaveEdit}
-                                        />
-                                    ))}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
+
+                    <DndContainer
+                      tasks={currentTasks}
+                      onDragEnd={handleDragEnd}
+                      onDelete={handleDeleteTask}
+                      onChangeIsChecked={handleChangeIsChecked}
+                      onSaveEdit={handleSaveEdit}
+                    />
+
                     {tasks.length > tasksPerPage && (
                         <div className="pagination">
                             {[...Array(Math.ceil(tasks.length / tasksPerPage)).keys()].map((number) => (
