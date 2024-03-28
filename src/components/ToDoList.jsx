@@ -73,7 +73,7 @@ function ToDoList() {
         <>
             <div className="container">
                 <div className="card">
-                    <h1>To-Do-List</h1>
+                    <h1>To Do List</h1>
                     <TaskForm onSubmit={handleSubmit} />
 
                     <DndContainer
