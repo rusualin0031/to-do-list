@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const [editingTask, setEditingTask] = useState(null);
@@ -14,41 +14,57 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         setEditingTask(null);
     };
 
+    const handleCancelEdit = () => {
+        setEditedTaskLabel(task.label);
+        setEditingTask(null);
+    }
+
+    console.log(editedTaskLabel, task.label)
+
+    const isEditing = editingTask === task;
+
     return (
         <>
-            <input
-                type="checkbox"
-                checked={task.isChecked}
-                onChange={(ev) => onChangeIsChecked(task, ev.target.checked)}
-            />
-
-            {editingTask === task ? (
+            {isEditing && (
                 <>
+                  <span className="itemLabel">
                     <input
-                        type="text"
-                        value={editedTaskLabel}
-                        onChange={(e) => setEditedTaskLabel(e.target.value)}
-                        onBlur={handleSaveEdit}
-                        onKeyUp={(e) => {
-                            if (e.key === "Enter") {
-                                handleSaveEdit();
-                            }
-                        }}
+                      type="text"
+                      value={editedTaskLabel}
+                      onChange={( e ) => setEditedTaskLabel( e.target.value )}
+                      onKeyUp={( e ) => {
+                        if ( e.key === "Enter" ) {
+                          handleSaveEdit();
+                        }
+                      }}
                     />
-                    <button onClick={handleSaveEdit}>Save</button>
-                </>
-            ) : (
-                <>
-                    <span className="itemLabel">{task.label}</span>
-                    <button className="button-edit" onClick={handleEditButtonClick}>
-                        Edit
-                    </button>
-                    <button className="button-delete" onClick={() => onDelete(task)}>
-                        Delete
-                    </button>
+                  </span>
+                  <button className="button button__save" onClick={handleSaveEdit}>
+                    Save
+                  </button>
+                  <button className="button button__cancel" onClick={handleCancelEdit}>
+                    Cancel
+                  </button>
                 </>
             )}
-      </>
+
+            {!isEditing && (
+              <>
+                <input
+                  type="checkbox"
+                  checked={task.isChecked}
+                  onChange={( ev ) => onChangeIsChecked( task, ev.target.checked )}
+                />
+                <span className="itemLabel">{task.label}</span>
+                <button className="button button__edit" onClick={handleEditButtonClick}>
+                  Edit
+                </button>
+                <button className="button button__delete" onClick={() => onDelete( task )}>
+                  Delete
+                </button>
+              </>
+            )}
+        </>
     );
 }
 

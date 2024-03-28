@@ -13,6 +13,47 @@
     background-color: #fff;
 }
 
+.button {
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: 5px;
+    transition: background 0.3s ease;
+
+    &__edit {
+        background: rgb(73, 73, 249);
+        &:hover {
+            background: rgb(23, 1, 94);
+        }
+    }
+
+    &__delete {
+        background: red;
+        &:hover {
+            background: darkred;
+        }
+    }
+
+    &__save {
+        background: green;
+        &:hover {
+            background: darkgreen;
+        }
+    }
+
+    &__cancel {
+        background: transparent;
+        color: black;
+
+        &:hover {
+            background: #eee;
+        }
+    }
+}
+
 .toDoListItems {
     .toDoListItem {
         padding: 15px;
@@ -20,43 +61,17 @@
         display: flex;
         align-items: center;
 
-        .button-edit {
-            background: rgb(73, 73, 249);
-            color: white;
-            border: 0;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px;
-            margin-left: auto;
-            margin-right: 5px;
-            transition: background 0.3s ease;
-
-            &:hover {
-                background: rgb(23, 1, 94);
-            }
-        }
-
-        .button-delete {
-            background: red;
-            color: white;
-            border: 0;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 10px;
-            margin-left: auto;
-            margin-right: 5px;
-            transition: background 0.3s ease;
-
-            &:hover {
-                background: darkred;
-            }
-        }
-
         .itemLabel {
             flex: 1;
             padding-left: 15px;
             font-weight: bold;
             cursor: pointer;
+
+            input[type=text] {
+                line-height: 30px;
+                padding: 0 10px;
+                width: 90%;
+            }
         }
     }
 }
@@ -104,6 +119,6 @@
 }
 
 .toDoListItem.dragging {
-    background-color: lightblue; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    background-color: lightblue;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
