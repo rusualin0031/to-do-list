@@ -1,0 +1,45 @@
+.login-card-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-card {
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.368); 
+    background-color: #fff;
+    text-align: center;
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+.input-username {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box; 
+    &:focus {
+        outline: none;
+        border-color: dodgerblue;
+    }
+}
+
+.button-login {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    &:hover {
+        background: #0056b3;
+    }
+}
