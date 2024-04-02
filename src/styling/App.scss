@@ -1,6 +1,12 @@
 body {
     margin: 0;
     padding: 0;
+    background: linear-gradient(to right, #f6f9fa, #b9c1c2, #dddfe2); 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .toDoListItems {
