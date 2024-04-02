@@ -28,7 +28,7 @@ function Landing () {
             placeholder="Enter your username"
             className="input-username"
           />
-          <button onClick={handleSetUsername} className="button-login">Enter</button>
+          <button onClick={handleSetUsername} className="button-login">Login</button>
         </div>
       </div>
     </div>
