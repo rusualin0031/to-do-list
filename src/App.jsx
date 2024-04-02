@@ -1,18 +1,17 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from './store'; 
-import UsernameForm from './components/UsernameForm'; 
-import ToDoList from './components/ToDoList'; 
+import {useSelector} from 'react-redux';
 import './styling/App.scss';
+import LoggedIn from "./pages/LoggedIn/index.jsx";
+import Landing from "./pages/Landing/index.jsx";
 
-function App() {
+function App () {
+  const username = useSelector( ( state ) => state.auth.username );
+  console.log( {username} );
+
   return (
-    <Provider store={store}>
-      <h1>Project</h1>
-      <UsernameForm />
-      <ToDoList />
-  </Provider>
-);
+    <>
+      {username ? <LoggedIn/> : <Landing/>}
+    </>
+  );
 }
 
 export default App
