@@ -1,4 +1,4 @@
-import ToDoList from "../../components/ToDoList.jsx";
+import ToDoList from "./ToDoList";
 
 function LoggedIn () {
   return (
