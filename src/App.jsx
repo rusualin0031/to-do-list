@@ -5,7 +5,6 @@ import Landing from "./pages/Landing/index.jsx";
 
 function App () {
   const username = useSelector( ( state ) => state.auth.username );
-  console.log( {username} );
 
   return (
     <>

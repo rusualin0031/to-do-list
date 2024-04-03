@@ -6,6 +6,7 @@ function Logout() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
+    localStorage.removeItem('username');
     dispatch(logout()); 
   };
 
