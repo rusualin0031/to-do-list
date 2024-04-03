@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
 import TaskForm from "./TaskForm";
 import DndContainer from "./DndContainer.jsx";
+import { logout } from '../../../store/slices/authSlice.js'; 
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const tasksPerPage = 10;
+    const dispatch = useDispatch();
 
     const handleDeleteTask = (task) => {
         if (window.confirm("Do you really want to delete?")) {
@@ -69,11 +72,17 @@ function ToDoList() {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }, [tasks]);
 
+    const handleLogout = () => {
+        dispatch(logout()); 
+    };
+
     return (
         <>
+            <button onClick={handleLogout} className="button-logout">Logout</button>
             <div className="container">
                 <div className="card">
                     <h1>To Do List</h1>
+
                     <TaskForm onSubmit={handleSubmit} />
 
                     <DndContainer
