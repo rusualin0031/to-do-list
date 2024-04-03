@@ -123,3 +123,28 @@
     background-color: lightblue;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+@media (max-width: 768px) {
+    .card {
+        width: 90%; 
+    }
+    
+    .button {
+        margin-right: 0; 
+    }
+
+    .newTaskForm {
+        flex-direction: column; 
+        align-items: stretch; 
+
+        input {
+            margin-right: 0; 
+            margin-bottom: 10px; 
+        }
+
+        button {
+            width: 100%; 
+            margin-bottom: 5px;
+        }
+    }
+}
