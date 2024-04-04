@@ -1,6 +1,7 @@
-
 import {useEffect, useState} from "react";
 import "./taskitem.scss";
+import deletetask from "../../../assets/delete-task.svg";
+import edittask from "../../../assets/edit-task.svg";
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const [editingTask, setEditingTask] = useState(null);
@@ -61,10 +62,10 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                 </div>
                 <span className="itemLabel">{task.label}</span>
                 <button className="button button__edit" onClick={handleEditButtonClick}>
-                  Edit
+                <img src={edittask} alt="Delete" />
                 </button>
                 <button className="button button__delete" onClick={() => onDelete( task )}>
-                  Delete
+                <img src={deletetask} alt="Delete" />
                 </button>
               </>
             )}
