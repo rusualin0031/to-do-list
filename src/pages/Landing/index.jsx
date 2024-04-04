@@ -20,11 +20,13 @@ function Landing () {
     };
 
     const handleSetUsername = () => {
+        if(inputUsername.trim() === "") return;
+
         saveUsernameInLocalStorage(inputUsername);
         saveUsernameInStore(inputUsername);
         setInputUsername( '');
     };
-    
+
 
     const handleKeyUp = (event) => {
         if (event.key === "Enter") {
