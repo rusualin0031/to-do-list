@@ -10,12 +10,15 @@ import { useDispatch } from 'react-redux';
 function App() {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.auth.username);
-  useEffect(() => {
+
+  const onComponentMount = () => {
     const localStorageUsername = localStorage.getItem("username");
     if (localStorageUsername) {
       saveUsernameInStore(localStorageUsername)
-    };
-  }, []);
+    }
+  }
+
+  useEffect(onComponentMount, []);
 
   const saveUsernameInStore = (inputUsername) => {
     dispatch(setUsername(inputUsername));
