@@ -1,5 +1,6 @@
 
 import {useEffect, useState} from "react";
+import "./taskitem.scss";
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const [editingTask, setEditingTask] = useState(null);
@@ -48,11 +49,16 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
 
             {!isEditing && (
               <>
-                <input
-                  type="checkbox"
-                  checked={task.isChecked}
-                  onChange={( ev ) => onChangeIsChecked( task, ev.target.checked )}
-                />
+                <div className="task-check" onClick={() => {
+                  onChangeIsChecked(task, !task.isChecked) 
+                }}>
+                  {task.isChecked && (
+                    <img src="/src/assets/checkbox-selected.svg" />
+                  )}
+                  {!task.isChecked && (
+                    <img src="/src/assets/checkbox-unselected.svg" />
+                  )}
+                </div>
                 <span className="itemLabel">{task.label}</span>
                 <button className="button button__edit" onClick={handleEditButtonClick}>
                   Edit
@@ -62,6 +68,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                 </button>
               </>
             )}
+
         </>
     );
 }
