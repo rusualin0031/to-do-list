@@ -11,10 +11,20 @@ function Landing () {
         setInputUsername( event.target.value );
     };
 
-    const handleSetUsername = () => {
+    const saveUsernameInStore = (inputUsername) => {
         dispatch(setUsername( inputUsername ) );
+    };
+
+    const saveUsernameInLocalStorage = (inputUsername) => {
+        localStorage.setItem("username",inputUsername);
+    };
+
+    const handleSetUsername = () => {
+        saveUsernameInLocalStorage(inputUsername);
+        saveUsernameInStore(inputUsername);
         setInputUsername( '');
     };
+    
 
     const handleKeyUp = (event) => {
         if (event.key === "Enter") {
