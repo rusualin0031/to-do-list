@@ -11,7 +11,7 @@ function ToDoList() {
     const dispatch = useDispatch();
 
     const handleDeleteTask = (task) => {
-        if (window.confirm("Do you really want to delete?")) {
+        if (window.confirm("Are you sure you want to delete this task?")) {
             const newTasks = tasks.filter((t) => t !== task);
             setTasks(newTasks);
         }
