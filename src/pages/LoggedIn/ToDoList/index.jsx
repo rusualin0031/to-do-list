@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import TaskForm from "./TaskForm";
 import DndContainer from "./DndContainer.jsx";
-import { logout } from '../../../store/slices/authSlice.js'; 
+import { logout } from '../../../store/slices/authSlice.js';
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -73,12 +73,11 @@ function ToDoList() {
     }, [tasks]);
 
     const handleLogout = () => {
-        dispatch(logout()); 
+        dispatch(logout());
     };
 
     return (
         <>
-            <button onClick={handleLogout} className="button-logout">Logout</button>
             <div className="container">
                 <div className="card">
                     <h1>To Do List</h1>
@@ -86,11 +85,11 @@ function ToDoList() {
                     <TaskForm onSubmit={handleSubmit} />
 
                     <DndContainer
-                      tasks={currentTasks}
-                      onDragEnd={handleDragEnd}
-                      onDelete={handleDeleteTask}
-                      onChangeIsChecked={handleChangeIsChecked}
-                      onSaveEdit={handleSaveEdit}
+                        tasks={currentTasks}
+                        onDragEnd={handleDragEnd}
+                        onDelete={handleDeleteTask}
+                        onChangeIsChecked={handleChangeIsChecked}
+                        onSaveEdit={handleSaveEdit}
                     />
 
                     {tasks.length > tasksPerPage && (
