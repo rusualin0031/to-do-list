@@ -14,7 +14,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-user">{username}</div>
-      <button className="button button__logout" onClick={handleLogout}>Logout</button>
+      <button className=" button__logout" onClick={handleLogout}>Logout</button>
     </nav>
   );
 }
