@@ -11,14 +11,12 @@ function App() {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.auth.username);
 
-  const onComponentMount = () => {
+  useEffect(function onComponentMount() {
     const localStorageUsername = localStorage.getItem("username");
     if (localStorageUsername) {
       saveUsernameInStore(localStorageUsername)
     }
-  }
-
-  useEffect(onComponentMount, []);
+  }, []);
 
   const saveUsernameInStore = (inputUsername) => {
     dispatch(setUsername(inputUsername));
