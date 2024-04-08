@@ -24,6 +24,11 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         setEditingTask(null);
     }
 
+    const handleSaveTask = () => {
+      onSaveEdit(task, editedTaskLabel, dueDate);
+      localStorage.setItem(`dueDate_${task.id}`, dueDate);
+    };
+
     const isEditing = editingTask === task;
 
     return (
