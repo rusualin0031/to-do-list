@@ -48,6 +48,16 @@
             background: rgb(201, 131, 8);
         }
     }
+
+    &__savedate {
+        background: rgb(117, 143, 227);
+        color: black;
+        height: 20px;
+
+        &:hover {
+            background: rgb(201, 131, 8);
+        }
+    }
 }
 
 .toDoListItems {
