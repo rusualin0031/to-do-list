@@ -1,11 +1,14 @@
+import DatePicker from "react-datepicker";
 import {useEffect, useState} from "react";
 import "./taskitem.scss";
 import deletetask from "../../../assets/delete-task.svg";
 import edittask from "../../../assets/edit-task.svg";
+import 'react-datepicker/dist/react-datepicker.css';
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const [editingTask, setEditingTask] = useState(null);
     const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
+    const [dueDate, setDueDate] = useState(null);
 
     const handleEditButtonClick = () => {
         setEditingTask(task);
@@ -20,7 +23,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         setEditedTaskLabel(task.label);
         setEditingTask(null);
     }
-    
+
     const isEditing = editingTask === task;
 
     return (
@@ -50,26 +53,23 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
 
             {!isEditing && (
               <>
-                <div className="task-check" onClick={() => {
-                  onChangeIsChecked(task, !task.isChecked) 
-                }}>
-                  {task.isChecked && (
+                <div className="task-check" onClick={() => onChangeIsChecked(task, !task.isChecked)}>
+                  {task.isChecked ? (
                     <img src="/src/assets/checkbox-selected.svg" />
-                  )}
-                  {!task.isChecked && (
+                  ) : (
                     <img src="/src/assets/checkbox-unselected.svg" />
                   )}
                 </div>
                 <span className="itemLabel">{task.label}</span>
+                <DatePicker selected={dueDate} onChange={(date) => setDueDate(date)} />
                 <button className="button button__edit" onClick={handleEditButtonClick}>
-                <img src={edittask} alt="Delete" />
+                  <img src={edittask} alt="Edit" />
                 </button>
-                <button className="button button__delete" onClick={() => onDelete( task )}>
-                <img src={deletetask} alt="Delete" />
+                <button className="button button__delete" onClick={() => onDelete(task)}>
+                  <img src={deletetask} alt="Delete" />
                 </button>
               </>
             )}
-
         </>
     );
 }
