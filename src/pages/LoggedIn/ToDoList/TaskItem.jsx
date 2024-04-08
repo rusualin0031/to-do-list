@@ -62,6 +62,9 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                 </div>
                 <span className="itemLabel">{task.label}</span>
                 <DatePicker selected={dueDate} onChange={(date) => setDueDate(date)} />
+                <button className="button button__save" onClick={handleSaveTask}>
+                  Save
+                </button>
                 <button className="button button__edit" onClick={handleEditButtonClick}>
                   <img src={edittask} alt="Edit" />
                 </button>
