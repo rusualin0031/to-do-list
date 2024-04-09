@@ -1,42 +1,41 @@
+import { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
-import {useEffect, useState} from "react";
 import "./taskitem.scss";
 import deletetask from "../../../assets/delete-task.svg";
 import edittask from "../../../assets/edit-task.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
-    const [editingTask, setEditingTask] = useState(null);
-    const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
-    const [dueDate, setDueDate] = useState(null);
+  const [editingTask, setEditingTask] = useState(null);
+  const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
+  const [dueDate, setDueDate] = useState(null);
 
-    useEffect(() => {
-      const storedDueDate = localStorage.getItem(`dueDate_${task.id}`);
-      if (storedDueDate) {
-        setDueDate(new Date(JSON.parse(storedDueDate)));
-      }
-    }, [task.id]);
-  
-
-    const handleEditButtonClick = () => {
-        setEditingTask(task);
-    };
-
-    const handleSaveEdit = () => {
-        onSaveEdit(task, editedTaskLabel);
-        setEditingTask(null);
-    };
-
-    const handleCancelEdit = () => {
-        setEditedTaskLabel(task.label);
-        setEditingTask(null);
+  useEffect(() => {
+    const storedDueDate = localStorage.getItem(`dueDate_${task.id}`);
+    if (storedDueDate) {
+      setDueDate(new Date(JSON.parse(storedDueDate)));
     }
+  }, [task.id]);
 
-    const handleSaveTask = () => {
-      onSaveEdit(task, editedTaskLabel, dueDate);
-      localStorage.setItem(`dueDate_${task.id}`, JSON.stringify(dueDate));
-    };
+  const handleEditButtonClick = () => {
+    setEditingTask(task);
+  };
 
+  const handleSaveEdit = () => {
+    onSaveEdit(task, editedTaskLabel);
+    setEditingTask(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditedTaskLabel(task.label);
+    setEditingTask(null);
+  };
+
+  const handleSaveTask = () => {
+    onSaveEdit(task, editedTaskLabel, dueDate);
+    localStorage.setItem(`dueDate_${task.id}`, JSON.stringify(dueDate));
+  };
+  
     const isEditing = editingTask === task;
 
     return (
