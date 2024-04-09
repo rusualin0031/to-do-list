@@ -76,6 +76,9 @@
 
         .item-due-date{
           flex: 1;
+          &__urgent{
+            color: red;
+          }
         }
 
         input[type=text] {

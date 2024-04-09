@@ -75,7 +75,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                   )}
                 </div>
                 <span className="item-label">{task.label}</span>
-                <span className="item-due-date">
+                <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
                   Due: {moment(task.due).format('D MMM YYYY')}
                 </span>
                 <button className="button button__edit" onClick={handleEditButtonClick}>
