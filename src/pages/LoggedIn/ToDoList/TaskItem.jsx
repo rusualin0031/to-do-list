@@ -10,6 +10,14 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
     const [dueDate, setDueDate] = useState(null);
 
+    useEffect(() => {
+      const storedDueDate = localStorage.getItem(`dueDate_${task.id}`);
+      if (storedDueDate) {
+        setDueDate(new Date(JSON.parse(storedDueDate)));
+      }
+    }, [task.id]);
+  
+
     const handleEditButtonClick = () => {
         setEditingTask(task);
     };
@@ -26,7 +34,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
 
     const handleSaveTask = () => {
       onSaveEdit(task, editedTaskLabel, dueDate);
-      localStorage.setItem(`dueDate_${task.id}`, dueDate);
+      localStorage.setItem(`dueDate_${task.id}`, JSON.stringify(dueDate));
     };
 
     const isEditing = editingTask === task;
