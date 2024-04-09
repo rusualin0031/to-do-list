@@ -4,25 +4,23 @@ import "./taskitem.scss";
 import deletetask from "../../../assets/delete-task.svg";
 import edittask from "../../../assets/edit-task.svg";
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from "moment";
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [editingTask, setEditingTask] = useState(null);
   const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
   const [dueDate, setDueDate] = useState(null);
 
-  useEffect(() => {
-    const storedDueDate = localStorage.getItem(`dueDate_${task.id}`);
-    if (storedDueDate) {
-      setDueDate(new Date(JSON.parse(storedDueDate)));
-    }
-  }, [task.id]);
+  useEffect( () => {
+    if(task.due) setDueDate(moment(task.due));
+  }, [] );
 
   const handleEditButtonClick = () => {
     setEditingTask(task);
   };
 
   const handleSaveEdit = () => {
-    onSaveEdit(task, editedTaskLabel);
+    onSaveEdit(task, editedTaskLabel, dueDate.format('YYYY-MM-DD'));
     setEditingTask(null);
   };
 
@@ -31,18 +29,14 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     setEditingTask(null);
   };
 
-  const handleSaveTask = () => {
-    onSaveEdit(task, editedTaskLabel, dueDate);
-    localStorage.setItem(`dueDate_${task.id}`, JSON.stringify(dueDate));
-  };
-  
     const isEditing = editingTask === task;
 
     return (
         <>
             {isEditing && (
                 <>
-                  <span className="itemLabel">
+                  <span className="item-label">
+                    Task:
                     <input
                       type="text"
                       value={editedTaskLabel}
@@ -52,6 +46,14 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                           handleSaveEdit();
                         }
                       }}
+                    />
+                  </span>
+                  <span className="item-due-date">
+                    <b>Due: </b> <br />
+                    <DatePicker
+                      selected={dueDate ? dueDate.toDate() : null}
+                      onChange={(date) => setDueDate(moment(date))}
+                      dateFormat="d MMM yyyy"
                     />
                   </span>
                   <button className="button button__save" onClick={handleSaveEdit}>
@@ -72,11 +74,10 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                     <img src="/src/assets/checkbox-unselected.svg" />
                   )}
                 </div>
-                <span className="itemLabel">{task.label}</span>
-                <DatePicker selected={dueDate} onChange={(date) => setDueDate(date)} />
-                <button className="button button__savedate" onClick={handleSaveTask}>
-                  Save
-                </button>
+                <span className="item-label">{task.label}</span>
+                <span className="item-due-date">
+                  Due: {moment(task.due).format('D MMM YYYY')}
+                </span>
                 <button className="button button__edit" onClick={handleEditButtonClick}>
                   <img src={edittask} alt="Edit" />
                 </button>

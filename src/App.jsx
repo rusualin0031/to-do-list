@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import './styling/App.scss';
 import LoggedIn from "./pages/LoggedIn/index.jsx";
 import Landing from "./pages/Landing/index.jsx";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { setUsername } from "./store/slices/authSlice.js";
 import { useDispatch } from 'react-redux';
 

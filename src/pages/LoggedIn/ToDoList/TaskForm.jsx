@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import moment from "moment";
 
 function TaskForm({ onSubmit }) {
     const [input, setInput] = useState("");
@@ -18,6 +19,9 @@ function TaskForm({ onSubmit }) {
         if (input.trim() === "") return;
         const newTask = {
             label: input.trim(),
+            due: moment()
+              .add(7, 'days')
+              .format('YYYY-MM-DD'),
             isChecked: false,
         };
         onSubmit(newTask);

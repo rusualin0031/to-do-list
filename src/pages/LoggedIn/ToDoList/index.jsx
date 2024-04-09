@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
 import DndContainer from "./DndContainer.jsx";
-import { logout } from '../../../store/slices/authSlice.js';
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const tasksPerPage = 10;
-    const dispatch = useDispatch();
 
     const handleDeleteTask = (task) => {
         if (window.confirm("Are you sure you want to delete this task?")) {
@@ -27,6 +24,7 @@ function ToDoList() {
                 return {
                     label: task.label,
                     isChecked: isChecked,
+                    due: task.due,
                 };
             }
             return t;
@@ -34,12 +32,13 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const handleSaveEdit = (task, editedName) => {
+    const handleSaveEdit = (task, editedName, due) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
-                    ...t,
                     label: editedName,
+                    isChecked: task.isChecked,
+                    due: due,
                 };
             }
             return t;
@@ -72,10 +71,6 @@ function ToDoList() {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }, [tasks]);
 
-    const handleLogout = () => {
-        dispatch(logout());
-    };
-
     return (
         <>
             <div className="container">
@@ -92,6 +87,7 @@ function ToDoList() {
                         onSaveEdit={handleSaveEdit}
                     />
 
+                    {/*
                     {tasks.length > tasksPerPage && (
                         <div className="pagination">
                             {[...Array(Math.ceil(tasks.length / tasksPerPage)).keys()].map((number) => (
@@ -101,6 +97,7 @@ function ToDoList() {
                             ))}
                         </div>
                     )}
+                    */}
                 </div>
             </div>
         </>

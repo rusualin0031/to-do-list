@@ -67,17 +67,21 @@
         display: flex;
         align-items: center;
 
-        .itemLabel {
+        .item-label {
             flex: 1;
             padding-left: 15px;
             font-weight: bold;
             cursor: pointer;
+        }
 
-            input[type=text] {
-                line-height: 30px;
-                padding: 0 10px;
-                width: 90%;
-            }
+        .item-due-date{
+          flex: 1;
+        }
+
+        input[type=text] {
+            line-height: 30px;
+            padding: 0 10px;
+            width: 90%;
         }
     }
 }
@@ -131,24 +135,24 @@
 
 @media (max-width: 768px) {
     .card {
-        width: 90%; 
+        width: 90%;
     }
-    
+
     .button {
-        margin-right: 0; 
+        margin-right: 0;
     }
 
     .newTaskForm {
-        flex-direction: column; 
-        align-items: stretch; 
+        flex-direction: column;
+        align-items: stretch;
 
         input {
-            margin-right: 0; 
-            margin-bottom: 10px; 
+            margin-right: 0;
+            margin-bottom: 10px;
         }
 
         button {
-            width: 100%; 
+            width: 100%;
             margin-bottom: 5px;
         }
     }
