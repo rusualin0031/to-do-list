@@ -10,17 +10,21 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [dueDate, setDueDate] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleMoreActionsClick = () => {
-    setShowMenu(!showMenu);
+  const handleMoreActionMouseEnter = () => {
+    setShowMenu(true);
+  };
+
+  const handleMoreActionMouseLeave = () => {
+    setShowMenu(false);
   };
 
   useEffect(() => {
-    if(task.due) setDueDate(moment(task.due));
+    if (task.due) setDueDate(moment(task.due));
   }, []);
 
   const handleEditButtonClick = () => {
     setEditingTask(task);
-    setShowMenu(false); 
+    setShowMenu(false);
   };
 
   const handleSaveEdit = () => {
@@ -49,9 +53,9 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
             <input
               type="text"
               value={editedTaskLabel}
-              onChange={( e ) => setEditedTaskLabel( e.target.value )}
-              onKeyUp={( e ) => {
-                if ( e.key === "Enter" ) {
+              onChange={(e) => setEditedTaskLabel(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
                   handleSaveEdit();
                 }
               }}
@@ -87,10 +91,12 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
           <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
             Due: {moment(task.due).format('D MMM YYYY')}
           </span>
-          <div className="ellipsis-dropdown">
-            <button className="button button__more-actions" onClick={handleMoreActionsClick}>
+
+          <div className="ellipsis-dropdown" onMouseEnter={handleMoreActionMouseEnter} onMouseLeave={handleMoreActionMouseLeave}>
+            <button className="button button__more-actions">
               <img src="/src/assets/ellipsis-vertical.svg" alt="More Actions" />
             </button>
+
             {showMenu && (
               <div className="actions-menu">
                 <div className="action-item action-edit" onClick={handleEditButtonClick}>Edit Task</div>

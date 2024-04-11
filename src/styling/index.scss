@@ -24,6 +24,7 @@
     margin-right: 5px;
     transition: background 0.3s ease;
 
+
     &__edit {
             background: rgba(23, 1, 94, 0);
     }
@@ -156,6 +157,7 @@
       border-radius: 5px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       z-index: 1;
+      transition: max-height 0.5s ease;
   
       .action-item {
         padding: 10px;
@@ -165,10 +167,12 @@
       
       .action-edit:hover {
         background-color: yellow;
+        border-radius: 5px;
       }
       
       .action-delete:hover {
         background-color: red;
+        border-radius: 5px;
         }
       }
     }
