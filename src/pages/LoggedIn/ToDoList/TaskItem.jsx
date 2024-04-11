@@ -10,11 +10,11 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [dueDate, setDueDate] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleMoreActionMouseEnter = () => {
+  const handleShowActionMenu = () => {
     setShowMenu(true);
   };
 
-  const handleMoreActionMouseLeave = () => {
+  const handleHideActionMenu = () => {
     setShowMenu(false);
   };
 
@@ -92,16 +92,19 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
             Due: {moment(task.due).format('D MMM YYYY')}
           </span>
 
-          <div className="ellipsis-dropdown" onMouseEnter={handleMoreActionMouseEnter} onMouseLeave={handleMoreActionMouseLeave}>
-            <button className="button button__more-actions">
+          <div className="ellipsis-dropdown">
+            <button className="button button__more-actions" onClick={handleShowActionMenu}>
               <img src="/src/assets/ellipsis-vertical.svg" alt="More Actions" />
             </button>
 
             {showMenu && (
-              <div className="actions-menu">
-                <div className="action-item action-edit" onClick={handleEditButtonClick}>Edit Task</div>
-                <div className="action-item action-delete" onClick={handleDeleteClick}>Delete Task</div>
-              </div>
+              <>
+                <div className="actions-menu-bg" onClick={handleHideActionMenu}></div>
+                <div className="actions-menu">
+                  <div className="action-item action-edit" onClick={handleEditButtonClick}>Edit Task</div>
+                  <div className="action-item action-delete" onClick={handleDeleteClick}>Delete Task</div>
+                </div>
+              </>
             )}
           </div>
         </>
