@@ -69,10 +69,12 @@
 .toDoListItems {
     .toDoListItem {
         padding: 15px;
-        margin-bottom: 20px;
+        margin: 10px 10px 10px;
         border-bottom: 1px solid #eee;
         display: flex;
         align-items: center;
+        background: rgba(211, 214, 160, 0.671);
+        border-radius: 10px;
 
         .item-label {
             flex: 1;
