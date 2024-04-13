@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
 import DndContainer from "./DndContainer.jsx";
+import Swal from 'sweetalert2';
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -8,10 +9,16 @@ function ToDoList() {
     const tasksPerPage = 10;
 
     const handleDeleteTask = (task) => {
-        if (window.confirm("Are you sure you want to delete this task?")) {
-            const newTasks = tasks.filter((t) => t !== task);
-            setTasks(newTasks);
-        }
+        Swal.fire({
+            title: "Do you want to delete this task?",
+            showDenyButton: true,
+            confirmButtonText: "Delete"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const newTasks = tasks.filter((t) => t !== task);
+                setTasks(newTasks);
+            }
+        });
     };
 
     const handleSubmit = (newTask) => {
