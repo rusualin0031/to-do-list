@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import "./taskitem.scss";
-import deletetask from "../../../assets/delete-task.svg";
-import edittask from "../../../assets/edit-task.svg";
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
 
@@ -10,13 +8,23 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [editingTask, setEditingTask] = useState(null);
   const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
   const [dueDate, setDueDate] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
 
-  useEffect( () => {
-    if(task.due) setDueDate(moment(task.due));
-  }, [] );
+  const handleShowActionMenu = () => {
+    setShowMenu(true);
+  };
+
+  const handleHideActionMenu = () => {
+    setShowMenu(false);
+  };
+
+  useEffect(() => {
+    if (task.due) setDueDate(moment(task.due));
+  }, []);
 
   const handleEditButtonClick = () => {
     setEditingTask(task);
+    setShowMenu(false);
   };
 
   const handleSaveEdit = () => {
@@ -29,65 +37,80 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     setEditingTask(null);
   };
 
-    const isEditing = editingTask === task;
+  const handleDeleteClick = () => {
+    onDelete(task);
+    setShowMenu(false);
+  };
 
-    return (
+  const isEditing = editingTask === task;
+
+  return (
+    <>
+      {isEditing && (
         <>
-            {isEditing && (
-                <>
-                  <span className="item-label">
-                    Task:
-                    <input
-                      type="text"
-                      value={editedTaskLabel}
-                      onChange={( e ) => setEditedTaskLabel( e.target.value )}
-                      onKeyUp={( e ) => {
-                        if ( e.key === "Enter" ) {
-                          handleSaveEdit();
-                        }
-                      }}
-                    />
-                  </span>
-                  <span className="item-due-date">
-                    <b>Due: </b> <br />
-                    <DatePicker
-                      selected={dueDate ? dueDate.toDate() : null}
-                      onChange={(date) => setDueDate(moment(date))}
-                      dateFormat="d MMM yyyy"
-                    />
-                  </span>
-                  <button className="button button__save" onClick={handleSaveEdit}>
-                    Save
-                  </button>
-                  <button className="button button__cancel" onClick={handleCancelEdit}>
-                    Cancel
-                  </button>
-                </>
-            )}
+          <span className="item-label">
+            Task:
+            <input
+              type="text"
+              value={editedTaskLabel}
+              onChange={(e) => setEditedTaskLabel(e.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  handleSaveEdit();
+                }
+              }}
+            />
+          </span>
+          <span className="item-due-date">
+            <b>Due: </b> <br />
+            <DatePicker
+              selected={dueDate ? dueDate.toDate() : null}
+              onChange={(date) => setDueDate(moment(date))}
+              dateFormat="d MMM yyyy"
+            />
+          </span>
+          <button className="button button__save" onClick={handleSaveEdit}>
+            Save
+          </button>
+          <button className="button button__cancel" onClick={handleCancelEdit}>
+            Cancel
+          </button>
+        </>
+      )}
 
-            {!isEditing && (
+      {!isEditing && (
+        <>
+          <div className="task-check" onClick={() => onChangeIsChecked(task, !task.isChecked)}>
+            {task.isChecked ? (
+              <img src="/src/assets/checkbox-selected.svg" />
+            ) : (
+              <img src="/src/assets/checkbox-unselected.svg" />
+            )}
+          </div>
+          <span className="item-label">{task.label}</span>
+          <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
+            Due: {moment(task.due).format('D MMM YYYY')}
+          </span>
+
+          <div className="ellipsis-dropdown">
+            <button className="button button__more-actions" onClick={handleShowActionMenu}>
+              <img src="/src/assets/ellipsis-vertical.svg" alt="More Actions" />
+            </button>
+
+            {showMenu && (
               <>
-                <div className="task-check" onClick={() => onChangeIsChecked(task, !task.isChecked)}>
-                  {task.isChecked ? (
-                    <img src="/src/assets/checkbox-selected.svg" />
-                  ) : (
-                    <img src="/src/assets/checkbox-unselected.svg" />
-                  )}
+                <div className="actions-menu-bg" onClick={handleHideActionMenu}></div>
+                <div className="actions-menu">
+                  <div className="action-item action-edit" onClick={handleEditButtonClick}>Edit Task</div>
+                  <div className="action-item action-delete" onClick={handleDeleteClick}>Delete Task</div>
                 </div>
-                <span className="item-label">{task.label}</span>
-                <span className="item-due-date">
-                  Due: {moment(task.due).format('D MMM YYYY')}
-                </span>
-                <button className="button button__edit" onClick={handleEditButtonClick}>
-                  <img src={edittask} alt="Edit" />
-                </button>
-                <button className="button button__delete" onClick={() => onDelete(task)}>
-                  <img src={deletetask} alt="Delete" />
-                </button>
               </>
             )}
+          </div>
         </>
-    );
+      )}
+    </>
+  );
 }
 
 export default TaskItem;
