@@ -1,6 +1,5 @@
-
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import TaskItem from "../TaskItem.jsx";
+import TaskItem from "../TaskItem";
 
 function DndContainer({onDragEnd, tasks, onDelete, onChangeIsChecked, onSaveEdit}) {
     const currentTasks = tasks;

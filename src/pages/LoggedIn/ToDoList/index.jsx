@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-//import TaskForm from "./AddNewTask/index.jsx";
-import DndContainer from "./DndContainer/index.jsx";
+import TaskForm from "./AddNewTask";
+import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
 
 function ToDoList() {

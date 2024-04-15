@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
-import "./taskitem.scss";
+import "./style.scss";
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
 
