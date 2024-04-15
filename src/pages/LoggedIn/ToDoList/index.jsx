@@ -67,9 +67,11 @@ function ToDoList() {
 
     const indexOfLastTask = currentPage * tasksPerPage;
     const indexOfFirstTask = indexOfLastTask - tasksPerPage;
-    const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
+    const currentTasks = tasks
+      // .filter(() => {})
+      .slice(indexOfFirstTask, indexOfLastTask);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
