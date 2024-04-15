@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
 import DndContainer from "./DndContainer.jsx";
 import Swal from 'sweetalert2';
@@ -16,7 +16,7 @@ function ToDoList() {
             denyButtonText: "Cancel",
         }).then((result) => {
             if (result.isConfirmed) {
-                setTasks(tasks.filter( ( t ) => t !== task ));
+                setTasks(tasks.filter((t) => t !== task));
             }
         });
     };
@@ -84,7 +84,7 @@ function ToDoList() {
                 <div className="card">
                     <h1>To Do List</h1>
 
-                    <TaskForm onSubmit={handleSubmit} />
+
 
                     <DndContainer
                         tasks={currentTasks}
@@ -93,6 +93,8 @@ function ToDoList() {
                         onChangeIsChecked={handleChangeIsChecked}
                         onSaveEdit={handleSaveEdit}
                     />
+
+                    <TaskForm onSubmit={handleSubmit} />
 
                     {/*
                     {tasks.length > tasksPerPage && (
