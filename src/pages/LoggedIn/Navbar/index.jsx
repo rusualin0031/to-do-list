@@ -1,7 +1,6 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../store/slices/authSlice';
-import './navbar.scss';
+import './style.scss';
+import {logout} from "../../../store/slices/authSlice.js";
 
 function Navbar() {
   const username = useSelector(state => state.auth.username);

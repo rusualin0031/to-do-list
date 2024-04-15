@@ -1,5 +1,5 @@
 import ToDoList from "./ToDoList";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "./Navbar";
 
 function LoggedIn () {
   return (
