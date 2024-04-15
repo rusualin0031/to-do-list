@@ -67,6 +67,10 @@
 }
 
 .toDoListItems {
+    max-height: 50vh;
+    overflow-y: scroll;
+    padding-bottom: 10px;
+
     .toDoListItem {
         padding: 15px;
         margin: 10px 10px 10px 1px;
@@ -109,7 +113,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
-        
+
 
         &:focus {
             outline: none;
@@ -172,18 +176,18 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       z-index: 3;
       transition: max-height 0.5s ease;
-  
+
       .action-item {
         padding: 10px;
         cursor: pointer;
         transition: background-color 0.3s;
       }
-      
+
       .action-edit:hover {
         background-color: yellow;
         border-radius: 5px;
       }
-      
+
       .action-delete:hover {
         background-color: red;
         border-radius: 5px;
