@@ -6,7 +6,11 @@ import Swal from 'sweetalert2';
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchInput, setSearchInput] = useState("");
+    const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const tasksPerPage = 10;
+
+    console.log({searchInput, urgentTasksOnly});
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -84,17 +88,36 @@ function ToDoList() {
                 <div className="card">
                     <h1>To Do List</h1>
 
-
+                    <div className="filter-tasks">
+                      <div>
+                          <input
+                            type="text"
+                            placeholder="Search task"
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                          />
+                      </div>
+                      <div>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={urgentTasksOnly}
+                              onChange={(e) => setUrgentTasksOnly(e.target.checked)}
+                            />
+                            Urgent tasks only
+                          </label>
+                      </div>
+                    </div>
 
                     <DndContainer
-                        tasks={currentTasks}
-                        onDragEnd={handleDragEnd}
-                        onDelete={handleDeleteTask}
-                        onChangeIsChecked={handleChangeIsChecked}
-                        onSaveEdit={handleSaveEdit}
+                      tasks={currentTasks}
+                      onDragEnd={handleDragEnd}
+                      onDelete={handleDeleteTask}
+                      onChangeIsChecked={handleChangeIsChecked}
+                      onSaveEdit={handleSaveEdit}
                     />
 
-                    <TaskForm onSubmit={handleSubmit} />
+                    <TaskForm onSubmit={handleSubmit}/>
 
                     {/*
                     {tasks.length > tasksPerPage && (
