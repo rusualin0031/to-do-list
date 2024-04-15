@@ -5,12 +5,8 @@ import Swal from 'sweetalert2';
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
     const [searchInput, setSearchInput] = useState("");
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
-    const tasksPerPage = 10;
-
-    console.log({searchInput, urgentTasksOnly});
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -65,13 +61,11 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const indexOfLastTask = currentPage * tasksPerPage;
-    const indexOfFirstTask = indexOfLastTask - tasksPerPage;
     const currentTasks = tasks
-      // .filter(() => {})
-      .slice(indexOfFirstTask, indexOfLastTask);
-
-    // const paginate = (pageNumber) => setCurrentPage(pageNumber);
+      .filter(task => {
+        console.log({task, searchInput, urgentTasksOnly});
+        return true;
+      })
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
