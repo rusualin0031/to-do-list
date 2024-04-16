@@ -105,6 +105,7 @@
 .newTaskForm {
     display: flex;
     align-items: center;
+    margin-top: 10px;
 
     input {
         flex: 1;
@@ -193,6 +194,32 @@
         border-radius: 5px;
         }
       }
+    }
+
+    .filter-tasks {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .filter-tasks input[type="text"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .urgent-tasks {
+        display: flex;
+        align-items: center;
+    }
+    
+    .urgent-tasks label {
+        margin-left: 10px;
+    }
+    
+    .urgent-tasks input[type="checkbox"] {
+        margin-right: 5px;
     }
 
 @media (max-width: 768px) {
