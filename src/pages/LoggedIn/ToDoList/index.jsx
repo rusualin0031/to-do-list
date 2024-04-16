@@ -61,11 +61,11 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const currentTasks = tasks
-      .filter(task => {
-        console.log({task, searchInput, urgentTasksOnly});
-        return true;
-      })
+    const currentTasks = tasks.filter((task) => {
+        const isSearchMatch = task.label.toLowerCase().includes(searchInput.toLowerCase());
+        const isUrgent = new Date(task.due) < new Date(); 
+        return urgentTasksOnly ? isUrgent : isSearchMatch; 
+      });
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
@@ -93,7 +93,7 @@ function ToDoList() {
                             onChange={(e) => setSearchInput(e.target.value)}
                           />
                       </div>
-                      <div>
+                      <div className="urgent-tasks">
                           <label>
                             <input
                               type="checkbox"
