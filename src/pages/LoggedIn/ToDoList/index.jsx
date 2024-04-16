@@ -63,9 +63,9 @@ function ToDoList() {
 
     const currentTasks = tasks.filter((task) => {
         const isSearchMatch = task.label.toLowerCase().includes(searchInput.toLowerCase());
-        const isUrgent = new Date(task.due) < new Date(); 
-        return urgentTasksOnly ? isUrgent : isSearchMatch; 
-      });
+        const isUrgent = new Date(task.due) < new Date();
+        return urgentTasksOnly ? isUrgent : isSearchMatch;
+    });
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
@@ -84,36 +84,37 @@ function ToDoList() {
                 <div className="card">
                     <h1>To Do List</h1>
 
+                    <TaskForm onSubmit={handleSubmit} />
+
                     <div className="filter-tasks">
-                      <div>
-                          <input
-                            type="text"
-                            placeholder="Search task"
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                          />
-                      </div>
-                      <div className="urgent-tasks">
-                          <label>
+                        <div>
                             <input
-                              type="checkbox"
-                              checked={urgentTasksOnly}
-                              onChange={(e) => setUrgentTasksOnly(e.target.checked)}
+                                type="text"
+                                placeholder="Search task"
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
                             />
-                            Urgent tasks only
-                          </label>
-                      </div>
+                        </div>
+                        <div className="urgent-tasks">
+                            <div className="checkbox">
+                                <img
+                                    src={urgentTasksOnly ? "/src/assets/checkbox-selected.svg" : "/src/assets/checkbox-unselected.svg"}
+                                    onClick={() => setUrgentTasksOnly(!urgentTasksOnly)}
+                                />
+                            </div>
+                            <label>
+                                <h3 style={{color: 'red'}}>Urgent tasks only</h3>
+                            </label>
+                        </div>
                     </div>
 
                     <DndContainer
-                      tasks={currentTasks}
-                      onDragEnd={handleDragEnd}
-                      onDelete={handleDeleteTask}
-                      onChangeIsChecked={handleChangeIsChecked}
-                      onSaveEdit={handleSaveEdit}
+                        tasks={currentTasks}
+                        onDragEnd={handleDragEnd}
+                        onDelete={handleDeleteTask}
+                        onChangeIsChecked={handleChangeIsChecked}
+                        onSaveEdit={handleSaveEdit}
                     />
-
-                    <TaskForm onSubmit={handleSubmit}/>
 
                     {/*
                     {tasks.length > tasksPerPage && (
