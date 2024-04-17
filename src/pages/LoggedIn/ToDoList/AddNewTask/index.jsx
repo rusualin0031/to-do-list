@@ -19,7 +19,7 @@ function TaskForm({ onSubmit }) {
         const newTask = {
             label: input.trim(),
             due: moment()
-              .add(7, 'days')
+              .add('days')
               .format('YYYY-MM-DD'),
             isChecked: false,
         };

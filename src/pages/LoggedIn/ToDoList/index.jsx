@@ -64,7 +64,7 @@ function ToDoList() {
     const currentTasks = tasks.filter((task) => {
         const isSearchMatch = task.label.toLowerCase().includes(searchInput.toLowerCase());
         const isUrgent = new Date(task.due) < new Date();
-        return urgentTasksOnly ? isUrgent : isSearchMatch;
+        return urgentTasksOnly ? (isSearchMatch && isUrgent) : isSearchMatch;
     });
 
     useEffect(() => {
