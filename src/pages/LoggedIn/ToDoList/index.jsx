@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TaskForm from "./AddNewTask";
 import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
+import moment from "moment/moment.js";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -63,11 +64,20 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const filteredTasks = tasks.filter((task) => {
-        const isSearchMatch = task.label.toLowerCase().includes(searchInput.toLowerCase());
-        const isUrgent = new Date(task.due) < new Date();
-        return urgentTasksOnly ? (isSearchMatch && isUrgent) : isSearchMatch;
-    });
+    const filteredTasks = tasks
+      .filter((task) => {
+        if(searchInput === "") return true;
+        return task.label.toLowerCase().includes(searchInput.toLowerCase());
+      })
+      .filter((task) => {
+        if(!urgentTasksOnly) return true;
+        return moment().isAfter(task.due);
+      })
+      .filter((task) => {
+        if(selectedChecked === "all") return true;
+        if(selectedChecked === "checked") return task.isChecked;
+        if(selectedChecked === "unchecked") return !task.isChecked;
+      })
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
