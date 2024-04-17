@@ -83,8 +83,12 @@ function ToDoList() {
     const sortedTasks = filteredTasks
       .sort((a, b) => {
         if(sortBy === "default") return 0;
+
         if(sortBy === "name") return a.label.localeCompare(b.label);
-        if(sortBy === "due-date") return a.due - b.due;
+        if(sortBy === "name-desc") return b.label.localeCompare(a.label);
+        
+        if(sortBy === "due-date") return new Date(a.due) - new Date(b.due);
+        if(sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
       })
 
     useEffect(() => {
@@ -137,13 +141,15 @@ function ToDoList() {
                             </select>
                         </div>
                         <div>
-                        <select
-                                value={sortBy}
-                                onChange={e => setSortBy(e.target.value)}
+                            <select
+                              value={sortBy}
+                              onChange={e => setSortBy( e.target.value )}
                             >
                                 <option value="default">Default</option>
                                 <option value="name">Name</option>
+                                <option value="name-desc">Name (DESC)</option>
                                 <option value="due-date">Due date</option>
+                                <option value="due-date-desc">Due date (DESC)</option>
                             </select>
                         </div>
                     </div>
