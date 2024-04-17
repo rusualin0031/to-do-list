@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import TaskForm from "./AddNewTask";
 import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
-import moment from "moment/moment.js";
+import moment from "moment";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
-    const [selectedChecked, setSelectedChecked] = useState('checked');
+    const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
     console.log(sortBy);
 
@@ -81,7 +81,11 @@ function ToDoList() {
       });
 
     const sortedTasks = filteredTasks
-      //.sort
+      .sort((a, b) => {
+        if(sortBy === "default") return 0;
+        if(sortBy === "name") return a.label.localeCompare(b.label);
+        if(sortBy === "due-date") return a.due - b.due;
+      })
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
