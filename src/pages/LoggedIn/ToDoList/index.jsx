@@ -7,6 +7,8 @@ function ToDoList() {
     const [tasks, setTasks] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
+    const [selectedChecked, setSelectedChecked] = useState('checked');
+    console.log(selectedChecked);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -61,7 +63,7 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const currentTasks = tasks.filter((task) => {
+    const filteredTasks = tasks.filter((task) => {
         const isSearchMatch = task.label.toLowerCase().includes(searchInput.toLowerCase());
         const isUrgent = new Date(task.due) < new Date();
         return urgentTasksOnly ? (isSearchMatch && isUrgent) : isSearchMatch;
@@ -103,13 +105,23 @@ function ToDoList() {
                                 />
                             </div>
                             <label>
-                                <h3 style={{color: 'red'}}>Urgent tasks only</h3>
+                                <h3 style={{ color: 'red' }}>Urgent tasks only</h3>
                             </label>
+                        </div>
+                        <div>
+                            <select
+                                value={selectedChecked}
+                                onChange={e => setSelectedChecked(e.target.value)}
+                            >
+                                <option value="all">All</option>
+                                <option value="checked">Checked</option>
+                                <option value="unchecked">Unchecked</option>
+                            </select>
                         </div>
                     </div>
 
                     <DndContainer
-                        tasks={currentTasks}
+                        tasks={filteredTasks}
                         onDragEnd={handleDragEnd}
                         onDelete={handleDeleteTask}
                         onChangeIsChecked={handleChangeIsChecked}
