@@ -9,7 +9,8 @@ function ToDoList() {
     const [searchInput, setSearchInput] = useState("");
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('checked');
-    console.log(selectedChecked);
+    const [sortBy, setSortBy] = useState('default');
+    console.log(sortBy);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -77,7 +78,10 @@ function ToDoList() {
         if(selectedChecked === "all") return true;
         if(selectedChecked === "checked") return task.isChecked;
         if(selectedChecked === "unchecked") return !task.isChecked;
-      })
+      });
+
+    const sortedTasks = filteredTasks
+      //.sort
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
@@ -128,10 +132,20 @@ function ToDoList() {
                                 <option value="unchecked">Unchecked</option>
                             </select>
                         </div>
+                        <div>
+                        <select
+                                value={sortBy}
+                                onChange={e => setSortBy(e.target.value)}
+                            >
+                                <option value="default">Default</option>
+                                <option value="name">Name</option>
+                                <option value="due-date">Due date</option>
+                            </select>
+                        </div>
                     </div>
 
                     <DndContainer
-                        tasks={filteredTasks}
+                        tasks={sortedTasks}
                         onDragEnd={handleDragEnd}
                         onDelete={handleDeleteTask}
                         onChangeIsChecked={handleChangeIsChecked}
