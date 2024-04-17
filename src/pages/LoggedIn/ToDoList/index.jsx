@@ -111,7 +111,7 @@ function ToDoList() {
                     <TaskForm onSubmit={handleSubmit} />
 
                     <div className="filter-tasks">
-                        <div>
+                        <div className="search-task">
                             <input
                                 type="text"
                                 placeholder="Search task"
@@ -120,15 +120,15 @@ function ToDoList() {
                             />
                         </div>
                         <div className="urgent-tasks">
+                            <label>
+                                Urgent tasks only
+                            </label>
                             <div className="checkbox">
                                 <img
                                     src={urgentTasksOnly ? "/src/assets/checkbox-selected.svg" : "/src/assets/checkbox-unselected.svg"}
                                     onClick={() => setUrgentTasksOnly(!urgentTasksOnly)}
                                 />
                             </div>
-                            <label>
-                                <h3 style={{ color: 'red' }}>Urgent tasks only</h3>
-                            </label>
                         </div>
                         <div>
                             <select
