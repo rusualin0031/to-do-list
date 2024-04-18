@@ -1,17 +1,18 @@
 .navbar {
-    display: flex;
-    background-color: #333333;
-    color: white;
-    padding: 1.5rem 1rem;
-    box-shadow: 0 3px 8px rgba(170, 74, 74, 0.904);
-  }
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  background-color: #333333;
+  color: white;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 3px 8px rgba(170, 74, 74, 0.904);
+}
   
   .navbar-user {
-    display: flex;
-    align-items: center;
     margin-left: auto; 
-    margin-right: 0.5rem;
-    font-family: 'Times New Roman', Times, serif; 
+    margin-right: 0.8rem;
+    font-family: 'Times New Roman', Times, serif;
+    margin: auto;
   }
   
   .button__logout {

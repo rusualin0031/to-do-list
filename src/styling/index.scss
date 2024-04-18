@@ -230,12 +230,10 @@
     border-radius: 5px;
     padding: 3px;
 
-
     img {
         height: 18px;
         padding: 3px;
         padding-bottom: 1px;
-        
     }
 }
 
@@ -255,15 +253,15 @@ select {
     background-color: rgba(211, 214, 160, 0.671);
     cursor: pointer;
     outline: none;
-  }
-  
-  option {
+}
+
+option {
     padding: 8px 16px;
-  }
-  
-  div {
+}
+
+div {
     margin-bottom: 20px;
-  }
+}
 
 @media (max-width: 768px) {
     .card {

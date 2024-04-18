@@ -10,7 +10,6 @@ function ToDoList() {
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
-    console.log(sortBy);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
