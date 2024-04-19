@@ -6,13 +6,12 @@
   color: white;
   padding: 1.5rem 1rem;
   box-shadow: 0 3px 8px rgba(170, 74, 74, 0.904);
+  align-items: center;
 }
   
   .navbar-user {
-    margin-left: auto; 
-    margin-right: 0.8rem;
+    margin: 0rem 1rem 0 auto;
     font-family: 'Times New Roman', Times, serif;
-    margin: auto;
   }
   
   .button__logout {

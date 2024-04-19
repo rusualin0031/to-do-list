@@ -1,11 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 
-function TaskForm({ onSubmit }) {
+function TaskForm({ onSubmit, users }) {
     const [input, setInput] = useState("");
+    const [assignedUser, setAssignedUser] = useState("");
 
     const handleInputChange = (event) => {
         setInput(event.target.value);
+    };
+
+    const handleUserChange = (event) => {
+        setAssignedUser(event.target.value);
     };
 
     const handleKeyUp = (event) => {
@@ -15,16 +20,16 @@ function TaskForm({ onSubmit }) {
     };
 
     const handleSubmit = () => {
-        if (input.trim() === "") return;
+        if (input.trim() === "" || assignedUser === "") return; 
         const newTask = {
             label: input.trim(),
-            due: moment()
-              .add(7, 'days')
-              .format('YYYY-MM-DD'),
+            due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
+            assignedUser: assignedUser 
         };
         onSubmit(newTask);
         setInput("");
+        setAssignedUser("");
     };
 
     return (
@@ -36,6 +41,12 @@ function TaskForm({ onSubmit }) {
                 onChange={handleInputChange}
                 onKeyUp={handleKeyUp}
             />
+            <select value={assignedUser} onChange={handleUserChange}>
+                <option value="">Assign to...</option>
+                {users.map((user, index) => (
+                    <option key={index} value={user}>{user}</option>
+                ))}
+            </select>
             <button type="button" className="add-buton" onClick={handleSubmit}>
                 Add Task
             </button>

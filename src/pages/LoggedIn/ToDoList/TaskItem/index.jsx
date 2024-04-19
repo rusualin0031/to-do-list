@@ -92,6 +92,8 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
             Due: {moment(task.due).format('D MMM YYYY')}
           </span>
 
+          <span className="item-user"> {task.assignedUser}</span>
+
           <div className="ellipsis-dropdown">
             <button className="button button__more-actions" onClick={handleShowActionMenu}>
               <img src="/src/assets/ellipsis-vertical.svg" alt="More Actions" />

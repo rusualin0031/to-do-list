@@ -10,6 +10,7 @@ function ToDoList() {
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
+    const [users] = useState(["User 1", "User 2", "User 3"]);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -107,7 +108,7 @@ function ToDoList() {
                 <div className="card">
                     <h1>To Do List</h1>
 
-                    <TaskForm onSubmit={handleSubmit} />
+                    <TaskForm onSubmit={handleSubmit} users={users} />
 
                     <div className="filter-tasks">
                         <div className="search-task">
