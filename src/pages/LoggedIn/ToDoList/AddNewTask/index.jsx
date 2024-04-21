@@ -13,14 +13,8 @@ function TaskForm({ onSubmit, users }) {
         setAssignedUser(event.target.value);
     };
 
-    const handleKeyUp = (event) => {
-        if (event.key === "Enter") {
-            handleSubmit();
-        }
-    };
-
     const handleSubmit = () => {
-        if (input.trim() === "" || assignedUser === "") return;
+        if (input.trim() === "") return;
         const newTask = {
             label: input.trim(),
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
@@ -30,6 +24,12 @@ function TaskForm({ onSubmit, users }) {
         onSubmit(newTask);
         setInput("");
         setAssignedUser("");
+    };
+
+    const handleKeyUp = (event) => {
+        if (event.key === "Enter") {
+            handleSubmit();
+        }
     };
 
     return (
