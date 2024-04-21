@@ -20,12 +20,12 @@ function TaskForm({ onSubmit, users }) {
     };
 
     const handleSubmit = () => {
-        if (input.trim() === "" || assignedUser === "") return; 
+        if (input.trim() === "" || assignedUser === "") return;
         const newTask = {
             label: input.trim(),
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
-            assignedUser: assignedUser 
+            assignedUser: assignedUser
         };
         onSubmit(newTask);
         setInput("");
