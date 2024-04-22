@@ -1,16 +1,16 @@
 .login-card-container {
     display: flex;
     justify-content: center;
-    align-items: center; 
-    height: 100vh; 
+    align-items: center;
+    height: 100vh;
 }
 
 .login-card {
-    width: 300px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.368); 
-    background-color: #fff;
+    width: 350px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
     text-align: center;
 }
 
@@ -19,29 +19,32 @@
 }
 
 .input-username {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 18px;
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
     &:focus {
         outline: none;
-        border-color: dodgerblue;
+        border-color: #007bff;
     }
 }
 
 .button-login {
-    padding: 10px;
+    padding: 15px;
     background: #007bff;
     color: white;
     border: 0;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
     width: 100%;
+    font-size: 18px;
     &:hover {
         background: #0056b3;
     }
 }
+
