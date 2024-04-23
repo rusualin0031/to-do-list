@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import moment from "moment";
 
-function TaskForm({ onSubmit, users }) {
+function TaskForm({ onSubmit, users, groups }) {
     const [input, setInput] = useState("");
     const [assignedUser, setAssignedUser] = useState("");
+    const [assignedGroup, setAssignedGroup] = useState("");
 
     const handleInputChange = (event) => {
         setInput(event.target.value);
@@ -19,11 +20,13 @@ function TaskForm({ onSubmit, users }) {
             label: input.trim(),
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
-            assignedUser: assignedUser
+            assignedUser: assignedUser,
+            assignedGroup: assignedGroup
         };
         onSubmit(newTask);
         setInput("");
         setAssignedUser("");
+        setAssignedGroup("");
     };
 
     const handleKeyUp = (event) => {
@@ -45,6 +48,9 @@ function TaskForm({ onSubmit, users }) {
                 <option value="">Assign to...</option>
                 {users.map((user, index) => (
                     <option key={index} value={user}>{user}</option>
+                ))}
+                {groups && Array.isArray(groups) && groups.map((group, index) => (
+                    <option key={index} value={group}>{group}</option>
                 ))}
             </select>
             <button type="button" className="add-buton" onClick={handleSubmit}>
