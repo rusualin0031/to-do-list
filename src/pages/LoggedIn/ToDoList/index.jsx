@@ -30,13 +30,15 @@ function ToDoList() {
         setTasks([...tasks, newTask]);
     };
 
-    const handleChangeIsChecked = (task, isChecked) => {
+    const handleChangeIsChecked = (task, isChecked, groups) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
+                    ...t,
                     label: task.label,
                     isChecked: isChecked,
                     due: task.due,
+                    groups: groups || t.groups
                 };
             }
             return t;
@@ -44,13 +46,15 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const handleSaveEdit = (task, editedName, due) => {
+    const handleSaveEdit = (task, editedName, due, groups) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
+                    ...t,
                     label: editedName,
                     isChecked: task.isChecked,
-                    due: due,
+                    due: due, 
+                    groups: groups || t.groups,
                 };
             }
             return t;
