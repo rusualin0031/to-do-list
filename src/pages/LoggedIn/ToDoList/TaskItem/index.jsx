@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "./style.scss";
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
+import groups from "../../../../data/groups.js";
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [editingTask, setEditingTask] = useState(null);
@@ -43,6 +44,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   };
 
   const isEditing = editingTask === task;
+  const group = groups.find((g) => g.id === task.group);
 
   return (
     <>
@@ -88,6 +90,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
             )}
           </div>
           <span className="item-label">{task.label}</span>
+          <span className="item-label">{group && group.label}</span>
           <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
             Due: {moment(task.due).format('D MMM YYYY')}
           </span>
