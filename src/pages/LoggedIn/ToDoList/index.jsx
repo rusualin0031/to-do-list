@@ -3,6 +3,7 @@ import TaskForm from "./AddNewTask";
 import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
 import moment from "moment";
+import groups from "../../../data/groups";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -11,8 +12,7 @@ function ToDoList() {
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
     const [users] = useState(["User 1", "User 2", "User 3"]);
-    const [groups] = useState(["Group 1", "Group 2", "Group 3"]);
-    const [selectedGroup, setSelectedGroup] = useState('all');
+    const [selectedGroup, setSelectedGroup] = useState( 0 );
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -73,32 +73,32 @@ function ToDoList() {
 
     const filteredTasks = tasks
         .filter((task) => {
-            if(searchInput === "") return true;
+            if (searchInput === "") return true;
             return task.label.toLowerCase().includes(searchInput.toLowerCase());
         })
         .filter((task) => {
-            if(!urgentTasksOnly) return true;
+            if (!urgentTasksOnly) return true;
             return moment().isAfter(task.due);
         })
         .filter((task) => {
-            if(selectedChecked === "all") return true;
-            if(selectedChecked === "checked") return task.isChecked;
-            if(selectedChecked === "unchecked") return !task.isChecked;
+            if (selectedChecked === "all") return true;
+            if (selectedChecked === "checked") return task.isChecked;
+            if (selectedChecked === "unchecked") return !task.isChecked;
         })
         .filter((task) => {
-            if (selectedGroup === 'all') return true;
-            return task.groups === selectedGroup;
+            if (selectedGroup === 0 ) return true;
+            return task.group === selectedGroup;
         });
 
     const sortedTasks = filteredTasks
         .sort((a, b) => {
-            if(sortBy === "default") return 0;
+            if (sortBy === "default") return 0;
 
-            if(sortBy === "name") return a.label.localeCompare(b.label);
-            if(sortBy === "name-desc") return b.label.localeCompare(a.label);
+            if (sortBy === "name") return a.label.localeCompare(b.label);
+            if (sortBy === "name-desc") return b.label.localeCompare(a.label);
 
-            if(sortBy === "due-date") return new Date(a.due) - new Date(b.due);
-            if(sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
+            if (sortBy === "due-date") return new Date(a.due) - new Date(b.due);
+            if (sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
         });
 
     useEffect(() => {
@@ -164,13 +164,18 @@ function ToDoList() {
                         </div>
                         <div>
                             <select
-                            value={selectedGroup}
-                            onChange={e => setSelectedGroup( e.target.value)}
+                                value={selectedGroup}
+                                onChange={e => setSelectedGroup(parseInt(e.target.value))}
                             >
-                                <option value="all">Groups</option>
-                                <option value="groups1">Groups1</option>
-                                <option value="groups2">Groups2</option>
-                                <option value="groups3">Groups3</option>
+                                <option value="0">All Groups</option>
+                                {groups.map((group) => (
+                                    <option
+                                        value={group.id}
+                                        key={group.id}
+                                    >
+                                        {group.label}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
