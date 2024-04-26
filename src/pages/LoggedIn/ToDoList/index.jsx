@@ -12,6 +12,7 @@ function ToDoList() {
     const [sortBy, setSortBy] = useState('default');
     const [users] = useState(["User 1", "User 2", "User 3"]);
     const [groups] = useState(["Group 1", "Group 2", "Group 3"]);
+    const [selectedGroup, setSelectedGroup] = useState('all');
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -53,7 +54,7 @@ function ToDoList() {
                     ...t,
                     label: editedName,
                     isChecked: task.isChecked,
-                    due: due, 
+                    due: due,
                     groups: groups || t.groups,
                 };
             }
@@ -71,30 +72,34 @@ function ToDoList() {
     };
 
     const filteredTasks = tasks
-      .filter((task) => {
-        if(searchInput === "") return true;
-        return task.label.toLowerCase().includes(searchInput.toLowerCase());
-      })
-      .filter((task) => {
-        if(!urgentTasksOnly) return true;
-        return moment().isAfter(task.due);
-      })
-      .filter((task) => {
-        if(selectedChecked === "all") return true;
-        if(selectedChecked === "checked") return task.isChecked;
-        if(selectedChecked === "unchecked") return !task.isChecked;
-      });
+        .filter((task) => {
+            if(searchInput === "") return true;
+            return task.label.toLowerCase().includes(searchInput.toLowerCase());
+        })
+        .filter((task) => {
+            if(!urgentTasksOnly) return true;
+            return moment().isAfter(task.due);
+        })
+        .filter((task) => {
+            if(selectedChecked === "all") return true;
+            if(selectedChecked === "checked") return task.isChecked;
+            if(selectedChecked === "unchecked") return !task.isChecked;
+        })
+        .filter((task) => {
+            if (selectedGroup === 'all') return true;
+            return task.groups === selectedGroup;
+        });
 
     const sortedTasks = filteredTasks
-      .sort((a, b) => {
-        if(sortBy === "default") return 0;
+        .sort((a, b) => {
+            if(sortBy === "default") return 0;
 
-        if(sortBy === "name") return a.label.localeCompare(b.label);
-        if(sortBy === "name-desc") return b.label.localeCompare(a.label);
-        
-        if(sortBy === "due-date") return new Date(a.due) - new Date(b.due);
-        if(sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
-      })
+            if(sortBy === "name") return a.label.localeCompare(b.label);
+            if(sortBy === "name-desc") return b.label.localeCompare(a.label);
+
+            if(sortBy === "due-date") return new Date(a.due) - new Date(b.due);
+            if(sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
+        });
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
@@ -147,14 +152,25 @@ function ToDoList() {
                         </div>
                         <div>
                             <select
-                              value={sortBy}
-                              onChange={e => setSortBy( e.target.value )}
+                                value={sortBy}
+                                onChange={e => setSortBy(e.target.value)}
                             >
                                 <option value="default">Default</option>
                                 <option value="name">Name</option>
                                 <option value="name-desc">Name (DESC)</option>
                                 <option value="due-date">Due date</option>
                                 <option value="due-date-desc">Due date (DESC)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select
+                            value={selectedGroup}
+                            onChange={e => setSelectedGroup( e.target.value)}
+                            >
+                                <option value="all">Groups</option>
+                                <option value="groups1">Groups1</option>
+                                <option value="groups2">Groups2</option>
+                                <option value="groups3">Groups3</option>
                             </select>
                         </div>
                     </div>
