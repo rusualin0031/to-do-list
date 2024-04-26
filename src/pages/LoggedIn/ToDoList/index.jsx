@@ -118,8 +118,6 @@ function ToDoList() {
                 <div className="card">
                     <h1>To Do List</h1>
 
-                    <TaskForm onSubmit={handleSubmit} users={users} groups={groups} />
-
                     <div className="filter-tasks">
                         <div className="search-task">
                             <input
@@ -199,6 +197,9 @@ function ToDoList() {
                         </div>
                     )}
                     */}
+
+                    <TaskForm onSubmit={handleSubmit} users={users} groups={groups} />
+                    
                 </div>
             </div>
         </>
