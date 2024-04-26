@@ -186,20 +186,8 @@ function ToDoList() {
                         onSaveEdit={handleSaveEdit}
                     />
 
-                    {/*
-                    {tasks.length > tasksPerPage && (
-                        <div className="pagination">
-                            {[...Array(Math.ceil(tasks.length / tasksPerPage)).keys()].map((number) => (
-                                <button key={number} onClick={() => paginate(number + 1)}>
-                                    {number + 1}
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                    */}
-
                     <TaskForm onSubmit={handleSubmit} users={users} groups={groups} />
-                    
+
                 </div>
             </div>
         </>
