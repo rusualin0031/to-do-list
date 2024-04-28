@@ -3,8 +3,8 @@ import TaskForm from "./AddNewTask";
 import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
 import moment from "moment";
-import groups from "../../../data/groups";
-import users from "../../../data/users";
+import group from "../../../data/groups";
+import user from "../../../data/users";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -32,7 +32,7 @@ function ToDoList() {
         setTasks([...tasks, newTask]);
     };
 
-    const handleChangeIsChecked = (task, isChecked, groups, users) => {
+    const handleChangeIsChecked = (task, isChecked, group, user) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
@@ -40,8 +40,8 @@ function ToDoList() {
                     label: task.label,
                     isChecked: isChecked,
                     due: task.due,
-                    groups: groups || t.groups,
-                    users: users || t.users,
+                    group: group || t.group,
+                    users: user || t.user,
                 };
             }
             return t;
@@ -49,7 +49,7 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const handleSaveEdit = (task, editedName, due, groups, users) => {
+    const handleSaveEdit = (task, editedName, due, group, user) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
@@ -57,8 +57,8 @@ function ToDoList() {
                     label: editedName,
                     isChecked: task.isChecked,
                     due: due,
-                    groups: groups || t.groups,
-                    users: users || t.users,
+                    group: group || t.group,
+                    user: user || t.user,
                 };
             }
             return t;
@@ -173,7 +173,7 @@ function ToDoList() {
                                 onChange={e => setSelectedGroup(parseInt(e.target.value))}
                             >
                                 <option value="0">All Groups</option>
-                                {groups.map((group) => (
+                                {group.map((group) => (
                                     <option
                                         value={group.id}
                                         key={group.id}
@@ -189,7 +189,7 @@ function ToDoList() {
                                 onChange={e => SetSelectedUser(parseInt(e.target.value))}
                             >
                                 <option value="0">All Users</option>
-                                {users.map((user) => (
+                                {user.map((user) => (
                                     <option
                                         value={user.id}
                                         key={user.id}

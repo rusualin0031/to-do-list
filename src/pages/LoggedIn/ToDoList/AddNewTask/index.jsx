@@ -1,11 +1,11 @@
 import { useState } from "react";
 import moment from "moment";
 import groups from "../../../../data/groups.js";
-import users from "../../../../data/users.js";
+import user from "../../../../data/users.js";
 
 function TaskForm({ onSubmit }) {
     const [input, setInput] = useState("");
-    const [assignedUser, setAssignedUser] = useState(users[0].id);
+    const [assignedUser, setAssignedUser] = useState(user[0].id);
     const [assignedGroup, setAssignedGroup] = useState(groups[0].id);
 
     const handleInputChange = (event) => {
@@ -52,7 +52,7 @@ function TaskForm({ onSubmit }) {
                 value={assignedUser.id}
                 onChange={(e) => setAssignedUser(parseInt(e.target.value))}
             >
-                {users.map((user) => (
+                {user.map((user) => (
                     <option key={user.id} value={user.id}>{user.label}</option>
                 ))}
             </select>
