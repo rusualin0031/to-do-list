@@ -4,6 +4,7 @@ import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
 import moment from "moment";
 import groups from "../../../data/groups";
+import users from "../../../data/users";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -11,8 +12,8 @@ function ToDoList() {
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
-    const [users] = useState(["User 1", "User 2", "User 3"]);
-    const [selectedGroup, setSelectedGroup] = useState( 0 );
+    const [selectedUser, SetSelectedUser] = useState(0);
+    const [selectedGroup, setSelectedGroup] = useState(0);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -31,7 +32,7 @@ function ToDoList() {
         setTasks([...tasks, newTask]);
     };
 
-    const handleChangeIsChecked = (task, isChecked, groups) => {
+    const handleChangeIsChecked = (task, isChecked, groups, users) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
@@ -39,7 +40,8 @@ function ToDoList() {
                     label: task.label,
                     isChecked: isChecked,
                     due: task.due,
-                    groups: groups || t.groups
+                    groups: groups || t.groups,
+                    users: users || t.users,
                 };
             }
             return t;
@@ -47,7 +49,7 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const handleSaveEdit = (task, editedName, due, groups) => {
+    const handleSaveEdit = (task, editedName, due, groups, users) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
@@ -56,6 +58,7 @@ function ToDoList() {
                     isChecked: task.isChecked,
                     due: due,
                     groups: groups || t.groups,
+                    users: users || t.users,
                 };
             }
             return t;
@@ -86,8 +89,12 @@ function ToDoList() {
             if (selectedChecked === "unchecked") return !task.isChecked;
         })
         .filter((task) => {
-            if (selectedGroup === 0 ) return true;
+            if (selectedGroup === 0) return true;
             return task.group === selectedGroup;
+        })
+        .filter((task) => {
+            if (selectedUser === 0) return true;
+            return task.user === selectedUser;
         });
 
     const sortedTasks = filteredTasks
@@ -176,6 +183,22 @@ function ToDoList() {
                                 ))}
                             </select>
                         </div>
+                        <div>
+                            <select
+                                value={selectedUser}
+                                onChange={e => SetSelectedUser(parseInt(e.target.value))}
+                            >
+                                <option value="0">All Users</option>
+                                {users.map((user) => (
+                                    <option
+                                        value={user.id}
+                                        key={user.id}
+                                    >
+                                        {user.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     <DndContainer
@@ -185,8 +208,7 @@ function ToDoList() {
                         onChangeIsChecked={handleChangeIsChecked}
                         onSaveEdit={handleSaveEdit}
                     />
-
-                    <TaskForm onSubmit={handleSubmit} users={users} groups={groups} />
+                    <TaskForm onSubmit={handleSubmit} />
 
                 </div>
             </div>
