@@ -3,6 +3,8 @@ import TaskForm from "./AddNewTask";
 import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
 import moment from "moment";
+import groups from "../../../data/groups";
+import users from "../../../data/users";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -10,8 +12,8 @@ function ToDoList() {
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
-    const [users] = useState(["User 1", "User 2", "User 3"]);
-    const [groups] = useState(["Group 1", "Group 2", "Group 3"]);
+    const [selectedUser, SetSelectedUser] = useState(0);
+    const [selectedGroup, setSelectedGroup] = useState(0);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -30,13 +32,16 @@ function ToDoList() {
         setTasks([...tasks, newTask]);
     };
 
-    const handleChangeIsChecked = (task, isChecked) => {
+    const handleChangeIsChecked = (task, isChecked, groups, users) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
+                    ...t,
                     label: task.label,
                     isChecked: isChecked,
                     due: task.due,
+                    groups: groups || t.groups,
+                    users: users || t.users,
                 };
             }
             return t;
@@ -44,13 +49,16 @@ function ToDoList() {
         setTasks(newTasks);
     };
 
-    const handleSaveEdit = (task, editedName, due) => {
+    const handleSaveEdit = (task, editedName, due, groups, users) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
+                    ...t,
                     label: editedName,
                     isChecked: task.isChecked,
                     due: due,
+                    groups: groups || t.groups,
+                    users: users || t.users,
                 };
             }
             return t;
@@ -67,30 +75,38 @@ function ToDoList() {
     };
 
     const filteredTasks = tasks
-      .filter((task) => {
-        if(searchInput === "") return true;
-        return task.label.toLowerCase().includes(searchInput.toLowerCase());
-      })
-      .filter((task) => {
-        if(!urgentTasksOnly) return true;
-        return moment().isAfter(task.due);
-      })
-      .filter((task) => {
-        if(selectedChecked === "all") return true;
-        if(selectedChecked === "checked") return task.isChecked;
-        if(selectedChecked === "unchecked") return !task.isChecked;
-      });
+        .filter((task) => {
+            if (searchInput === "") return true;
+            return task.label.toLowerCase().includes(searchInput.toLowerCase());
+        })
+        .filter((task) => {
+            if (!urgentTasksOnly) return true;
+            return moment().isAfter(task.due);
+        })
+        .filter((task) => {
+            if (selectedChecked === "all") return true;
+            if (selectedChecked === "checked") return task.isChecked;
+            if (selectedChecked === "unchecked") return !task.isChecked;
+        })
+        .filter((task) => {
+            if (selectedGroup === 0) return true;
+            return task.group === selectedGroup;
+        })
+        .filter((task) => {
+            if (selectedUser === 0) return true;
+            return task.user === selectedUser;
+        });
 
     const sortedTasks = filteredTasks
-      .sort((a, b) => {
-        if(sortBy === "default") return 0;
+        .sort((a, b) => {
+            if (sortBy === "default") return 0;
 
-        if(sortBy === "name") return a.label.localeCompare(b.label);
-        if(sortBy === "name-desc") return b.label.localeCompare(a.label);
-        
-        if(sortBy === "due-date") return new Date(a.due) - new Date(b.due);
-        if(sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
-      })
+            if (sortBy === "name") return a.label.localeCompare(b.label);
+            if (sortBy === "name-desc") return b.label.localeCompare(a.label);
+
+            if (sortBy === "due-date") return new Date(a.due) - new Date(b.due);
+            if (sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
+        });
 
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
@@ -108,8 +124,6 @@ function ToDoList() {
             <div className="container">
                 <div className="card">
                     <h1>To Do List</h1>
-
-                    <TaskForm onSubmit={handleSubmit} users={users} groups={groups} />
 
                     <div className="filter-tasks">
                         <div className="search-task">
@@ -143,14 +157,46 @@ function ToDoList() {
                         </div>
                         <div>
                             <select
-                              value={sortBy}
-                              onChange={e => setSortBy( e.target.value )}
+                                value={sortBy}
+                                onChange={e => setSortBy(e.target.value)}
                             >
                                 <option value="default">Default</option>
                                 <option value="name">Name</option>
                                 <option value="name-desc">Name (DESC)</option>
                                 <option value="due-date">Due date</option>
                                 <option value="due-date-desc">Due date (DESC)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select
+                                value={selectedGroup}
+                                onChange={e => setSelectedGroup(parseInt(e.target.value))}
+                            >
+                                <option value="0">All Groups</option>
+                                {groups.map((group) => (
+                                    <option
+                                        value={group.id}
+                                        key={group.id}
+                                    >
+                                        {group.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <select
+                                value={selectedUser}
+                                onChange={e => SetSelectedUser(parseInt(e.target.value))}
+                            >
+                                <option value="0">All Users</option>
+                                {users.map((user) => (
+                                    <option
+                                        value={user.id}
+                                        key={user.id}
+                                    >
+                                        {user.label}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -162,18 +208,8 @@ function ToDoList() {
                         onChangeIsChecked={handleChangeIsChecked}
                         onSaveEdit={handleSaveEdit}
                     />
+                    <TaskForm onSubmit={handleSubmit} />
 
-                    {/*
-                    {tasks.length > tasksPerPage && (
-                        <div className="pagination">
-                            {[...Array(Math.ceil(tasks.length / tasksPerPage)).keys()].map((number) => (
-                                <button key={number} onClick={() => paginate(number + 1)}>
-                                    {number + 1}
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                    */}
                 </div>
             </div>
         </>

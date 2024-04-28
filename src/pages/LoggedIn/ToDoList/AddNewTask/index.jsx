@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import moment from "moment";
+import groups from "../../../../data/groups.js";
+import users from "../../../../data/users.js";
 
-function TaskForm({ onSubmit, users, groups }) {
+function TaskForm({ onSubmit }) {
     const [input, setInput] = useState("");
-    const [assignedUser, setAssignedUser] = useState("");
-    const [assignedGroup, setAssignedGroup] = useState("");
+    const [assignedUser, setAssignedUser] = useState(users[0].id);
+    const [assignedGroup, setAssignedGroup] = useState(groups[0].id);
 
     const handleInputChange = (event) => {
         setInput(event.target.value);
-    };
-
-    const handleUserChange = (event) => {
-        setAssignedUser(event.target.value);
     };
 
     const handleSubmit = () => {
@@ -21,12 +19,10 @@ function TaskForm({ onSubmit, users, groups }) {
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
             assignedUser: assignedUser,
-            assignedGroup: assignedGroup
+            group: assignedGroup
         };
         onSubmit(newTask);
         setInput("");
-        setAssignedUser("");
-        setAssignedGroup("");
     };
 
     const handleKeyUp = (event) => {
@@ -44,13 +40,20 @@ function TaskForm({ onSubmit, users, groups }) {
                 onChange={handleInputChange}
                 onKeyUp={handleKeyUp}
             />
-            <select value={assignedUser} onChange={handleUserChange}>
-                <option value="">Assign to...</option>
-                {users.map((user, index) => (
-                    <option key={index} value={user}>{user}</option>
+            <select
+              value={assignedGroup.id}
+              onChange={(e) => setAssignedGroup(parseInt(e.target.value))}
+            >
+                {groups.map((group) => (
+                    <option key={group.id} value={group.id}>{group.label}</option>
                 ))}
-                {groups && Array.isArray(groups) && groups.map((group, index) => (
-                    <option key={index} value={group}>{group}</option>
+            </select>
+            <select
+                value={assignedUser.id}
+                onChange={(e) => setAssignedUser(parseInt(e.target.value))}
+            >
+                {users.map((user) => (
+                    <option key={user.id} value={user.id}>{user.label}</option>
                 ))}
             </select>
             <button type="button" className="add-buton" onClick={handleSubmit}>
