@@ -12,7 +12,6 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <img className='logo' src='src/assets/logo-company.png'></img>
       <div className="navbar-user">{username}</div>
       <button className=" button__logout" onClick={handleLogout}>Logout</button>
     </nav>
