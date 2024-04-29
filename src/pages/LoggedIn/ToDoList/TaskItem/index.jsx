@@ -13,6 +13,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [dueDate, setDueDate] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const handleShowActionMenu = () => {
     setShowMenu(true);
@@ -48,7 +49,9 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
 
   const handleUserSelection = (user) => {
     console.log('User selected:', user);
+    setSelectedUser(user);
     setShowUserModal(false);
+    
   }
 
   const isEditing = editingTask === task;
@@ -103,7 +106,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
             Due: {moment(task.due).format('D MMM YYYY')}
           </span>
 
-          <span className="item-user"> {task.assignedUser}</span>
+          <span className="item-user">{selectedUser ? selectedUser.label : 'No user selected'}</span>
 
           <div className="ellipsis-dropdown">
             <button className="button button__more-actions" onClick={handleShowActionMenu}>
