@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
 import groups from "../../../../data/groups.js";
 import users from '../../../../data/users.js';
-import UserSelectionModal from './UserSelectionModal.jsx';
+import UserSelectionModal from '../UserSelectionModal/index.jsx';
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [editingTask, setEditingTask] = useState(null);
