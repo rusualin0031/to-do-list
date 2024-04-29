@@ -41,7 +41,7 @@ function ToDoList() {
                     isChecked: isChecked,
                     due: task.due,
                     group: group || t.group,
-                    users: user || t.user,
+                    user: user || t.user,
                 };
             }
             return t;

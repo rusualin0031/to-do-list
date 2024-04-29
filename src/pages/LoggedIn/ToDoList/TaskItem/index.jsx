@@ -4,12 +4,15 @@ import "./style.scss";
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
 import groups from "../../../../data/groups.js";
+import users from '../../../../data/users.js';
+import UserSelectionModal from './UserSelectionModal.jsx';
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   const [editingTask, setEditingTask] = useState(null);
   const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
   const [dueDate, setDueDate] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(false);
 
   const handleShowActionMenu = () => {
     setShowMenu(true);
@@ -42,6 +45,11 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     onDelete(task);
     setShowMenu(false);
   };
+
+  const handleUserSelection = (user) => {
+    console.log('User selected:', user);
+    setShowUserModal(false);
+  }
 
   const isEditing = editingTask === task;
   const group = groups.find((g) => g.id === task.group);
@@ -110,6 +118,18 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                   <div className="action-item action-delete" onClick={handleDeleteClick}>Delete Task</div>
                 </div>
               </>
+            )}
+
+            <button className="button button__user-select" onClick={() => setShowUserModal(true)}>
+              <img src="/src/assets/user-icon.svg" alt="Select User" />
+            </button>
+
+            {showUserModal && (
+              <UserSelectionModal
+              users={users}
+              onSelect={handleUserSelection}
+              onClose={() => setShowUserModal(false)}
+              />
             )}
           </div>
         </>

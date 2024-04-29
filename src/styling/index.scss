@@ -23,7 +23,6 @@
     margin-right: 5px;
     transition: background 0.3s ease;
 
-
     &__edit {
         background: rgba(23, 1, 94, 0);
     }
@@ -63,6 +62,15 @@
 
     &__more-actions {
         background: transparent;
+        margin-left: 5px;
+        transform: rotate(90deg);
+    }
+
+    &__user-select {
+        transform: rotate(0deg);
+        padding: 1px 5px 10px 5px;
+        background: transparent;
+        justify-content: center;
     }
 }
 
@@ -91,6 +99,7 @@
             flex: 1;
             font-weight: bold;
             cursor: pointer;
+            
 
             &__urgent {
                 color: red;
@@ -160,6 +169,7 @@
 
 .ellipsis-dropdown {
     position: relative;
+    margin-bottom: auto;
 
     .actions-menu-bg {
         position: fixed;

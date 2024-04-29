@@ -1,11 +1,11 @@
 import { useState } from "react";
 import moment from "moment";
 import groups from "../../../../data/groups.js";
-import user from "../../../../data/users.js";
+import users from "../../../../data/users.js";
 
 function TaskForm({ onSubmit }) {
     const [input, setInput] = useState("");
-    const [assignedUser, setAssignedUser] = useState(user[0].id);
+    const [assignedUser, setAssignedUser] = useState(users[0]);
     const [assignedGroup, setAssignedGroup] = useState(groups[0].id);
 
     const handleInputChange = (event) => {
@@ -18,7 +18,7 @@ function TaskForm({ onSubmit }) {
             label: input.trim(),
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
-            assignedUser: assignedUser,
+            user: assignedUser,
             group: assignedGroup
         };
         onSubmit(newTask);
@@ -41,8 +41,8 @@ function TaskForm({ onSubmit }) {
                 onKeyUp={handleKeyUp}
             />
             <select
-              value={assignedGroup.id}
-              onChange={(e) => setAssignedGroup(parseInt(e.target.value))}
+                value={assignedGroup.id}
+                onChange={(e) => setAssignedGroup(parseInt(e.target.value))}
             >
                 {groups.map((group) => (
                     <option key={group.id} value={group.id}>{group.label}</option>
@@ -50,9 +50,9 @@ function TaskForm({ onSubmit }) {
             </select>
             <select
                 value={assignedUser.id}
-                onChange={(e) => setAssignedUser(parseInt(e.target.value))}
+                onChange={(e) => setAssignedUser(users.find(user => user.id === parseInt(e.target.value)))}
             >
-                {user.map((user) => (
+                {users.map((user) => (
                     <option key={user.id} value={user.id}>{user.label}</option>
                 ))}
             </select>
