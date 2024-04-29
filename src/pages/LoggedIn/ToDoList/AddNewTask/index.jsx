@@ -1,7 +1,7 @@
 import { useState } from "react";
 import moment from "moment";
 import groups from "../../../../data/groups.js";
-import user from "../../../../data/users.js";
+import users from "../../../../data/users.js";
 
 function TaskForm({ onSubmit }) {
     const [input, setInput] = useState("");
@@ -52,7 +52,7 @@ function TaskForm({ onSubmit }) {
                 value={assignedUser.id}
                 onChange={(e) => setAssignedUser(parseInt(e.target.value))}
             >
-                {user.map((user) => (
+                {users.map((user) => (
                     <option key={user.id} value={user.id}>{user.label}</option>
                 ))}
             </select>

@@ -3,8 +3,8 @@ import TaskForm from "./AddNewTask";
 import DndContainer from "./DndContainer";
 import Swal from 'sweetalert2';
 import moment from "moment";
-import group from "../../../data/groups";
-import user from "../../../data/users";
+import groups from "../../../data/groups";
+import users from "../../../data/users";
 
 function ToDoList() {
     const [tasks, setTasks] = useState([]);
@@ -173,7 +173,7 @@ function ToDoList() {
                                 onChange={e => setSelectedGroup(parseInt(e.target.value))}
                             >
                                 <option value="0">All Groups</option>
-                                {group.map((group) => (
+                                {groups.map((group) => (
                                     <option
                                         value={group.id}
                                         key={group.id}
@@ -189,7 +189,7 @@ function ToDoList() {
                                 onChange={e => SetSelectedUser(parseInt(e.target.value))}
                             >
                                 <option value="0">All Users</option>
-                                {user.map((user) => (
+                                {users.map((user) => (
                                     <option
                                         value={user.id}
                                         key={user.id}
