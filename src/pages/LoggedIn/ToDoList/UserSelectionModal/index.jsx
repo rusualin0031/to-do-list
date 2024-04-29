@@ -1,5 +1,6 @@
 import React from 'react';
 import users from "../../../../data/users.js";
+import "./style.scss";
 
 function UserSelectionModal({ onSelect, onClose }) {
   const handleUserSelect = (user) => {
@@ -17,7 +18,7 @@ function UserSelectionModal({ onSelect, onClose }) {
             </li>
           ))}
         </ul>
-        <button onClick={onClose}>Close</button>
+        <button className='close-button' onClick={onClose}>Close</button>
       </div>
     </div>
   );
