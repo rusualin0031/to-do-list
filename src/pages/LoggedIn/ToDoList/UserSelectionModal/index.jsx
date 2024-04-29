@@ -17,6 +17,9 @@ function UserSelectionModal({ onSelect, onClose }) {
               {user.label}
             </li>
           ))}
+          <li onClick={() => handleUserSelect( null )}>
+            Unassigned
+          </li>
         </ul>
         <button className='close-button' onClick={onClose}>Close</button>
       </div>
