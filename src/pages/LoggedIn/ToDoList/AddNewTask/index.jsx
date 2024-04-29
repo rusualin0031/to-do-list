@@ -48,14 +48,14 @@ function TaskForm({ onSubmit }) {
                     <option key={group.id} value={group.id}>{group.label}</option>
                 ))}
             </select>
-            <select
+            {/* <select
                 value={assignedUser.id}
                 onChange={(e) => setAssignedUser(users.find(user => user.id === parseInt(e.target.value)))}
             >
                 {users.map((user) => (
                     <option key={user.id} value={user.id}>{user.label}</option>
                 ))}
-            </select>
+            </select> */}
             <button type="button" className="add-buton" onClick={handleSubmit}>
                 Add Task
             </button>
