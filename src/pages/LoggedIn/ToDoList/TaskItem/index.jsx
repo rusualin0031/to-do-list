@@ -48,7 +48,6 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
   };
 
   const handleUserSelection = (user) => {
-    console.log('User selected:', user);
     setSelectedUser(user);
     setShowUserModal(false);
     
