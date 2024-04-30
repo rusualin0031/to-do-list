@@ -9,14 +9,18 @@ function UserSelectionModal({ onSelect, onClose }) {
 
   return (
     <div className="user-selection-modal">
+      <div className="modal-background" onClick={onClose}></div>
       <div className="modal-content">
         <h2>Select User</h2>
         <ul>
-          {users.map((user) => (
-            <li key={user.id} onClick={() => handleUserSelect(user)}>
-              {user.label}
+          {users.map( ( user ) => (
+            <li key={user.id} onClick={() => handleUserSelect( user )}>
+              <b>{user.label}</b>
             </li>
-          ))}
+          ) )}
+          <li onClick={() => handleUserSelect( null )}>
+            Unassigned
+          </li>
         </ul>
         <button className='close-button' onClick={onClose}>Close</button>
       </div>
