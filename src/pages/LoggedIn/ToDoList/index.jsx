@@ -12,7 +12,7 @@ function ToDoList() {
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
-    const [selectedUser, SetSelectedUser] = useState(0);
+    const [selectedUser, setSelectedUser] = useState(0);
     const [selectedGroup, setSelectedGroup] = useState(0);
 
     const handleDeleteTask = (task) => {
@@ -186,7 +186,7 @@ function ToDoList() {
                         <div>
                             <select
                                 value={selectedUser}
-                                onChange={e => SetSelectedUser(parseInt(e.target.value))}
+                                onChange={e => setSelectedUser(parseInt(e.target.value))}
                             >
                                 <option value="0">All Users</option>
                                 {users.map((user) => (

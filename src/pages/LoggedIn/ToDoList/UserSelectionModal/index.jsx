@@ -22,7 +22,7 @@ function UserSelectionModal({ onSelect, onClose }) {
             Unassigned
           </li>
         </ul>
-        <button className='close-button' onClick={onClose}>Close</button>
+        <button className='close-button' type="button" onClick={onClose}>Close</button>
       </div>
     </div>
   );
