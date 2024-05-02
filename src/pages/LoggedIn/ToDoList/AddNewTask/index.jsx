@@ -5,8 +5,8 @@ import users from "../../../../data/users.js";
 
 function TaskForm({ onSubmit }) {
     const [input, setInput] = useState("");
-    const [assignedUser, setAssignedUser] = useState(users[0]);
     const [assignedGroup, setAssignedGroup] = useState(groups[0].id);
+    const [selectedUserForTask, setSelectedUserForTask] = useState(null); 
 
     const handleInputChange = (event) => {
         setInput(event.target.value);
@@ -18,7 +18,7 @@ function TaskForm({ onSubmit }) {
             label: input.trim(),
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
-            user: assignedUser,
+            user: selectedUserForTask,
             group: assignedGroup
         };
         onSubmit(newTask);
@@ -48,14 +48,15 @@ function TaskForm({ onSubmit }) {
                     <option key={group.id} value={group.id}>{group.label}</option>
                 ))}
             </select>
-            {/* <select
-                value={assignedUser.id}
-                onChange={(e) => setAssignedUser(users.find(user => user.id === parseInt(e.target.value)))}
+            <select
+                value={selectedUserForTask}
+                onChange={(e) => setSelectedUserForTask(parseInt(e.target.value))}
             >
+                <option value={null}>Assign User</option>
                 {users.map((user) => (
                     <option key={user.id} value={user.id}>{user.label}</option>
                 ))}
-            </select> */}
+            </select>
             <button type="button" className="add-buton" onClick={handleSubmit}>
                 Add Task
             </button>

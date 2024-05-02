@@ -106,7 +106,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
             Due: {moment(task.due).format('D MMM YYYY')}
           </span>
 
-          <span className="item-user">{selectedUser ? selectedUser.label : 'Unassigned'}</span>
+          <span className="item-user">{task.user ? users.find(user => user.id === task.user).label : 'Unassigned'}</span>
 
           <div className="ellipsis-dropdown">
             <button className="button button__more-actions" onClick={handleShowActionMenu}>
