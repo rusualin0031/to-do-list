@@ -12,9 +12,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-< Filter-tasks-by-assigned-user/TDLAR-19
       <img className="logo" src="src/assets/logo-company.png"></img>
-> main
       <div className="navbar-user">{username}</div>
       <button className=" button__logout" onClick={handleLogout}>Logout</button>
     </nav>
