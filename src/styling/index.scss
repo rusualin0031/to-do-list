@@ -12,6 +12,7 @@
     background-color: #fff;
     background: linear-gradient(to right, #f4f4f05e, #e5e5de36, #b3b3a718);
     padding-bottom: 60px;
+    overflow-y: auto;
 }
 
 .button {
@@ -99,7 +100,6 @@
             flex: 1;
             font-weight: bold;
             cursor: pointer;
-            
 
             &__urgent {
                 color: red;
@@ -118,47 +118,59 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     gap: 15px;
+}
 
-    input {
-        flex: 1;
-        margin-right: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
+.add-task-button {
+    display: flex;
+    align-items: center;
+    padding-top: 8px;
+    justify-content: center;
+    background-color: #bcbcbc0c;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    left: calc(100% - 70px);
+    top: 0;
 
-
-        &:focus {
-            outline: none;
-            border-color: dodgerblue;
-        }
+    &:hover {
+        background-color: #a9a9a946;
     }
+
+    img {
+        height: 33px;
+    }
+
+    span {
+        font-size: 15px;
+        margin-left: 5px;
+    }
+}
+
+.newTaskForm>*:not(.add-task-button) {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+
+    &:focus {
+        outline: none;
+        border-color: dodgerblue;
+    }
+}
+
+.move-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
 
     button {
-        background: green;
-        color: white;
-        border: 0;
-        border-radius: 5px;
-        cursor: pointer;
-        padding: 10px 10px ;
-        transition: background 0.3s ease;
-        margin-right: 30px;
-
-        &:hover {
-            background: darkgreen;
-        }
-    }
-
-    .move-buttons {
-        display: flex;
-        flex-direction: column;
-        margin-left: 10px;
-
-        button {
-            margin-bottom: 5px;
-        }
+        margin-bottom: 5px;
     }
 }
 
@@ -214,11 +226,9 @@
     }
 }
 
-
 .filter-tasks {
     display: flex;
     gap: 15px;
-    //justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     margin-top: 20px;

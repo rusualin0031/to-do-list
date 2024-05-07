@@ -13,12 +13,12 @@ function UserSelectionModal({ onSelect, onClose }) {
       <div className="modal-content">
         <h2>Select User</h2>
         <ul>
-          {users.map( ( user ) => (
-            <li key={user.id} onClick={() => handleUserSelect( user )}>
+          {users.map((user) => (
+            <li key={user.id} onClick={() => handleUserSelect(user)}>
               <b>{user.label}</b>
             </li>
-          ) )}
-          <li onClick={() => handleUserSelect( null )}>
+          ))}
+          <li onClick={() => handleUserSelect(null)}>
             Unassigned
           </li>
         </ul>
