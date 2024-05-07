@@ -5,15 +5,20 @@ import Swal from 'sweetalert2';
 import moment from "moment";
 import groups from "../../../data/groups";
 import users from "../../../data/users";
+import {useDispatch, useSelector} from "react-redux";
+import {setTaskList} from "../../../store/slices/tasksSlice.js";
 
 function ToDoList() {
-    const [tasks, setTasks] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [urgentTasksOnly, setUrgentTasksOnly] = useState(false);
     const [selectedChecked, setSelectedChecked] = useState('all');
     const [sortBy, setSortBy] = useState('default');
     const [selectedUser, setSelectedUser] = useState(0);
     const [selectedGroup, setSelectedGroup] = useState(0);
+    const dispatch = useDispatch();
+    const tasks = useSelector((state) => state.tasks.list);
+    console.log(tasks);
+
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -23,13 +28,13 @@ function ToDoList() {
             denyButtonText: "Cancel",
         }).then((result) => {
             if (result.isConfirmed) {
-                setTasks(tasks.filter((t) => t !== task));
+                dispatch(setTaskList(tasks.filter((t) => t !== task)));
             }
         });
     };
 
     const handleSubmit = (newTask) => {
-        setTasks([...tasks, newTask]);
+        dispatch(setTaskList([...tasks, newTask]));
     };
 
     const handleChangeIsChecked = (task, isChecked, group, user) => {
@@ -46,7 +51,7 @@ function ToDoList() {
             }
             return t;
         });
-        setTasks(newTasks);
+        dispatch(setTaskList(newTasks));
     };
 
     const handleSaveEdit = (task, editedName, due, group, user) => {
@@ -63,7 +68,7 @@ function ToDoList() {
             }
             return t;
         });
-        setTasks(newTasks);
+        dispatch(setTaskList(newTasks));
     };
 
     const handleDragEnd = (result) => {
@@ -71,7 +76,7 @@ function ToDoList() {
         const newTasks = Array.from(tasks);
         const [reorderedTask] = newTasks.splice(result.source.index, 1);
         newTasks.splice(result.destination.index, 0, reorderedTask);
-        setTasks(newTasks);
+        dispatch(setTaskList(newTasks));
     };
 
     const filteredTasks = tasks
@@ -111,7 +116,9 @@ function ToDoList() {
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
         if (tasks) {
-            setTasks(JSON.parse(tasks));
+            const localStorageTasks = JSON.parse(tasks);
+            console.log(localStorageTasks);
+            dispatch(setTaskList(localStorageTasks));
         }
     }, []);
 

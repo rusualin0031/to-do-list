@@ -9,7 +9,7 @@ function TaskForm({ onSubmit }) {
     const [selectedUserForTask, setSelectedUserForTask] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const formRef = useRef(null);
+    const formRef = useRef(null); 
 
     useEffect(() => {
         const handleClickOutside = (event) => {
