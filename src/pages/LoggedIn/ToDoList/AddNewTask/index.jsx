@@ -8,8 +8,7 @@ function TaskForm({ onSubmit }) {
     const [assignedGroup, setAssignedGroup] = useState(groups[0].id);
     const [selectedUserForTask, setSelectedUserForTask] = useState(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
-    const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const formRef = useRef(null); 
+    const formRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -40,7 +39,6 @@ function TaskForm({ onSubmit }) {
         onSubmit(newTask);
         setInput("");
         setIsFormVisible(false);
-        setIsButtonVisible(true);
     };
 
     const handleKeyUp = (event) => {
@@ -51,12 +49,10 @@ function TaskForm({ onSubmit }) {
 
     const toggleFormVisibility = () => {
         setIsFormVisible(!isFormVisible);
-        setIsButtonVisible(!isFormVisible);
     };
 
     return (
         <div className="newTaskForm" ref={formRef}>
-            {isButtonVisible && (
                 <button
                     type="button"
                     className="add-task-button"
@@ -65,7 +61,6 @@ function TaskForm({ onSubmit }) {
                     <img src="/src/assets/plus-icon.svg" alt="" />
                     <span>Create Task</span>
                 </button>
-            )}
             {isFormVisible && (
                 <>
                     <input

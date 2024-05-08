@@ -17,8 +17,6 @@ function ToDoList() {
     const [selectedGroup, setSelectedGroup] = useState(0);
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.list);
-    console.log(tasks);
-
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -117,7 +115,6 @@ function ToDoList() {
         const tasks = localStorage.getItem("tasks");
         if (tasks) {
             const localStorageTasks = JSON.parse(tasks);
-            console.log(localStorageTasks);
             dispatch(setTaskList(localStorageTasks));
         }
     }, []);
