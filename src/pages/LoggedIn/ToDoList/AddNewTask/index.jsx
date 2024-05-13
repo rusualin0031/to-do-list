@@ -34,7 +34,8 @@ function TaskForm({ onSubmit }) {
             due: moment().add(7, 'days').format('YYYY-MM-DD'),
             isChecked: false,
             user: selectedUserForTask,
-            group: assignedGroup
+            group: assignedGroup,
+            color: "white"
         };
         onSubmit(newTask);
         setInput("");

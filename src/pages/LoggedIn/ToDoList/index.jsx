@@ -17,6 +17,7 @@ function ToDoList() {
     const [selectedGroup, setSelectedGroup] = useState(0);
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.list);
+    const [selectedTaskColor, setSelectedTaskColor] = useState(null);
 
     const handleDeleteTask = (task) => {
         Swal.fire({
@@ -35,7 +36,7 @@ function ToDoList() {
         dispatch(setTaskList([...tasks, newTask]));
     };
 
-    const handleChangeIsChecked = (task, isChecked, group, user) => {
+    const handleChangeIsChecked = (task, isChecked, group, user,) => {
         const newTasks = tasks.map((t) => {
             if (t === task) {
                 return {
@@ -111,6 +112,10 @@ function ToDoList() {
             if (sortBy === "due-date-desc") return new Date(b.due) - new Date(a.due);
         });
 
+    const setTaskColor = (color) => {
+        dispatch(setSelectedTaskColor(color));
+    }
+
     useEffect(() => {
         const tasks = localStorage.getItem("tasks");
         if (tasks) {
@@ -122,6 +127,10 @@ function ToDoList() {
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }, [tasks]);
+
+    useEffect(() => {
+        localStorage.setItem("selectedTaskColor", selectedTaskColor);
+    }, [selectedTaskColor]);
 
     return (
         <>
