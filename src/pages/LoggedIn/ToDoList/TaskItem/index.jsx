@@ -21,8 +21,6 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
     const [showColorMenu, setShowColorMenu] = useState(false);
     const dispatch = useDispatch();
 
-
-
     const handleShowActionMenu = () => {
         setShowMenu(true);
     };
@@ -60,17 +58,12 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
         setShowUserModal(false);
     }
 
-    function handleColorButtonClick() {
-        setShowColorMenu(!showColorMenu);
+    const handleShowColorMenu = () => {
+        setShowColorMenu(true);
     }
 
-    const handleColorSelection = (color) => {
-        setSelectedColor(color);
+    const handleHideColorMenu = () => {
         setShowColorMenu(false);
-    };
-
-    const handleChangeColor = () => {
-        setShowColorMenu(true);
     }
 
     const handleSetColor = (color) => {
@@ -85,7 +78,6 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
         })
         dispatch(setTaskList(newTasks));
     }
-
 
     const isEditing = editingTask === task;
     const group = groups.find((g) => g.id === task.group);
@@ -136,8 +128,8 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
                     <span className="item-label" style={{backgroundColor: selectedColor}}>{task.label}</span>
                     <span className="item-label">{group && group.label}</span>
                     <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
-            Due: {moment(task.due).format('D MMM YYYY')}
-          </span>
+                        Due: {moment(task.due).format('D MMM YYYY')}
+                    </span>
 
                     <span
                         className="item-user">{task.user ? users.find(user => user.id === task.user).label : 'Unassigned'}</span>
@@ -169,36 +161,27 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
                                 onClose={() => setShowUserModal(false)}
                             />
                         )}
+                        <div className="color-dropdown">
+                            <button className="color-dropdown-button" onClick={handleShowColorMenu}
+                                    style={{backgroundColor: task.color}}>
+                            </button>
+                            {showColorMenu && (
+                                <>
+                                    <div className="actions-menu-bg" onClick={handleHideColorMenu}></div>
+                                    <div className="color-dropdown-menu">
+                                        <div className="action-item" onClick={() => handleSetColor("#ffffff")}>White
+                                        </div>
+                                        <div className="action-item" onClick={() => handleSetColor("#ff0000")}>Red</div>
+                                        <div className="action-item" onClick={() => handleSetColor("#ffaa00")}>Orange
+                                        </div>
+                                        <div className="action-item" onClick={() => handleSetColor("#00ff00")}>Green
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="task-color">
-                        <button
-                            onClick={handleChangeColor}
-                            style={{backgroundColor: task.color, width: '100px', height: '40px' }}
-                        >
-                        </button>
-
-                        {showColorMenu && (
-                            <div>
-                                <div onClick={() => {
-                                    handleSetColor("#ffffff")
-                                }}>White
-                                </div>
-                                <div onClick={() => {
-                                    handleSetColor("#ff0000")
-                                }}>Red
-                                </div>
-                                <div onClick={() => {
-                                    handleSetColor("#ffaa00")
-                                }}>Orange
-                                </div>
-                                <div onClick={() => {
-                                    handleSetColor("#00ff00")
-                                }}>Green
-                                </div>
-                            </div>
-                        )}
-                    </div>
                 </>
             )}
         </>

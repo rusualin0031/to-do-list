@@ -129,7 +129,7 @@ function ToDoList() {
     }, [tasks]);
 
     useEffect(() => {
-        localStorage.setItem("selectedTaskColor", selectedTaskColor);
+        localStorage.setItem("selectedTaskColor", "selectedTaskColor");
     }, [selectedTaskColor]);
 
     return (
