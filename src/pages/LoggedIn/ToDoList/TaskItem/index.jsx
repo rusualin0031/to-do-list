@@ -31,8 +31,8 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
 
     useEffect(() => {
         if (task.due) setDueDate(moment(task.due));
-
-    },);
+        setSelectedColor();
+    }, [task.due, task.color]);
 
     const handleEditButtonClick = () => {
         setEditingTask(task);
@@ -66,7 +66,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         });
         dispatch(setTaskList(newTasks));
         setShowUserModal(false);
-    };
+    }
 
     const handleShowColorMenu = () => {
         setShowColorMenu(true);
@@ -154,10 +154,8 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                             <>
                                 <div className="actions-menu-bg" onClick={handleHideActionMenu}></div>
                                 <div className="actions-menu">
-                                    <div className="action-item action-edit" onClick={handleEditButtonClick}>Edit Task
-                                    </div>
-                                    <div className="action-item action-delete" onClick={handleDeleteClick}>Delete Task
-                                    </div>
+                                    <div className="action-item action-edit" onClick={handleEditButtonClick}>Edit Task</div>
+                                    <div className="action-item action-delete" onClick={handleDeleteClick}>Delete Task</div>
                                 </div>
                             </>
                         )}
@@ -180,13 +178,10 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                                 <>
                                     <div className="actions-menu-bg" onClick={handleHideColorMenu}></div>
                                     <div className="color-dropdown-menu">
-                                        <div className="action-item" onClick={() => handleSetColor("#ffffff")}>White
-                                        </div>
+                                        <div className="action-item" onClick={() => handleSetColor("#ffffff")}>White</div>
                                         <div className="action-item" onClick={() => handleSetColor("#ff0000")}>Red</div>
-                                        <div className="action-item" onClick={() => handleSetColor("#ffaa00")}>Orange
-                                        </div>
-                                        <div className="action-item" onClick={() => handleSetColor("#00ff00")}>Green
-                                        </div>
+                                        <div className="action-item" onClick={() => handleSetColor("#ffaa00")}>Orange</div>
+                                        <div className="action-item" onClick={() => handleSetColor("#00ff00")}>Green</div>
                                     </div>
                                 </>
                             )}
