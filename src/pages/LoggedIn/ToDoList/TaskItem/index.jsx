@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import "./style.scss";
 import 'react-datepicker/dist/react-datepicker.css';
@@ -6,17 +6,17 @@ import moment from "moment";
 import groups from "../../../../data/groups.js";
 import users from '../../../../data/users.js';
 import UserSelectionModal from '../UserSelectionModal/index.jsx';
-import {useDispatch, useSelector} from "react-redux";
-import {setTaskList} from "../../../../store/slices/tasksSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setTaskList } from "../../../../store/slices/tasksSlice.js";
 
-function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
+function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const tasks = useSelector((state) => state.tasks.list);
     const [editingTask, setEditingTask] = useState(null);
     const [editedTaskLabel, setEditedTaskLabel] = useState(task.label);
     const [dueDate, setDueDate] = useState(null);
     const [showMenu, setShowMenu] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(task.user);
     const [selectedColor, setSelectedColor] = useState(null);
     const [showColorMenu, setShowColorMenu] = useState(false);
     const dispatch = useDispatch();
@@ -31,7 +31,8 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
 
     useEffect(() => {
         if (task.due) setDueDate(moment(task.due));
-    }, []);
+
+    },);
 
     const handleEditButtonClick = () => {
         setEditingTask(task);
@@ -54,9 +55,18 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
     };
 
     const handleUserSelection = (user) => {
-        setSelectedUser(user);
+        setSelectedUser(user.id);
+        const newTasks = tasks.map(t => {
+            if (t === task) {
+                const newTask = { ...task, user: user.id }
+                return newTask;
+            } else {
+                return t;
+            }
+        });
+        dispatch(setTaskList(newTasks));
         setShowUserModal(false);
-    }
+    };
 
     const handleShowColorMenu = () => {
         setShowColorMenu(true);
@@ -70,7 +80,7 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
         setShowColorMenu(false)
         const newTasks = tasks.map(t => {
             if (t === task) {
-                const newTask = {...task, color: color}
+                const newTask = { ...task, color: color }
                 return newTask;
             } else {
                 return t;
@@ -86,27 +96,27 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
         <>
             {isEditing && (
                 <>
-          <span className="item-label">
-            Task:
-            <input
-                type="text"
-                value={editedTaskLabel}
-                onChange={(e) => setEditedTaskLabel(e.target.value)}
-                onKeyUp={(e) => {
-                    if (e.key === "Enter") {
-                        handleSaveEdit();
-                    }
-                }}
-            />
-          </span>
+                    <span className="item-label">
+                        Task:
+                        <input
+                            type="text"
+                            value={editedTaskLabel}
+                            onChange={(e) => setEditedTaskLabel(e.target.value)}
+                            onKeyUp={(e) => {
+                                if (e.key === "Enter") {
+                                    handleSaveEdit();
+                                }
+                            }}
+                        />
+                    </span>
                     <span className="item-due-date">
-            <b>Due: </b> <br/>
-            <DatePicker
-                selected={dueDate ? dueDate.toDate() : null}
-                onChange={(date) => setDueDate(moment(date))}
-                dateFormat="d MMM yyyy"
-            />
-          </span>
+                        <b>Due: </b> <br />
+                        <DatePicker
+                            selected={dueDate ? dueDate.toDate() : null}
+                            onChange={(date) => setDueDate(moment(date))}
+                            dateFormat="d MMM yyyy"
+                        />
+                    </span>
                     <button className="button button__save" onClick={handleSaveEdit}>
                         Save
                     </button>
@@ -120,23 +130,24 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
                 <>
                     <div className="task-check" onClick={() => onChangeIsChecked(task, !task.isChecked)}>
                         {task.isChecked ? (
-                            <img src="/src/assets/checkbox-selected.svg"/>
+                            <img src="/src/assets/checkbox-selected.svg" />
                         ) : (
-                            <img src="/src/assets/checkbox-unselected.svg"/>
+                            <img src="/src/assets/checkbox-unselected.svg" />
                         )}
                     </div>
-                    <span className="item-label" style={{backgroundColor: selectedColor}}>{task.label}</span>
+                    <span className="item-label" style={{ backgroundColor: selectedColor }}>{task.label}</span>
                     <span className="item-label">{group && group.label}</span>
                     <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
                         Due: {moment(task.due).format('D MMM YYYY')}
                     </span>
 
-                    <span
-                        className="item-user">{task.user ? users.find(user => user.id === task.user).label : 'Unassigned'}</span>
+                    <span className="item-user">
+                        {selectedUser ? users.find(user => user.id === selectedUser).label : 'Unassigned'}
+                    </span>
 
                     <div className="ellipsis-dropdown">
                         <button className="button button__more-actions" onClick={handleShowActionMenu}>
-                            <img src="/src/assets/ellipsis-vertical.svg" alt="More Actions"/>
+                            <img src="/src/assets/ellipsis-vertical.svg" alt="More Actions" />
                         </button>
 
                         {showMenu && (
@@ -151,7 +162,7 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
                             </>
                         )}
                         <button className="button button__user-select" onClick={() => setShowUserModal(true)}>
-                            <img src="/src/assets/user-icon.svg" alt="Select User"/>
+                            <img src="/src/assets/user-icon.svg" alt="Select User" />
                         </button>
 
                         {showUserModal && (
@@ -163,7 +174,7 @@ function TaskItem({task, onChangeIsChecked, onSaveEdit, onDelete}) {
                         )}
                         <div className="color-dropdown">
                             <button className="color-dropdown-button" onClick={handleShowColorMenu}
-                                    style={{backgroundColor: task.color}}>
+                                style={{ backgroundColor: task.color }}>
                             </button>
                             {showColorMenu && (
                                 <>
