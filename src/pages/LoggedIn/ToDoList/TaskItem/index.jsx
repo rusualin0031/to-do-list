@@ -8,6 +8,7 @@ import users from '../../../../data/users.js';
 import UserSelectionModal from '../UserSelectionModal/index.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import { setTaskList } from "../../../../store/slices/tasksSlice.js";
+import ColorPicker from '../ColorPicker/index.jsx';
 
 function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const tasks = useSelector((state) => state.tasks.list);
@@ -17,8 +18,6 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
     const [showMenu, setShowMenu] = useState(false);
     const [showUserModal, setShowUserModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(task.user);
-    const [selectedColor, setSelectedColor] = useState(null);
-    const [showColorMenu, setShowColorMenu] = useState(false);
     const dispatch = useDispatch();
 
     const handleShowActionMenu = () => {
@@ -31,7 +30,6 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
 
     useEffect(() => {
         if (task.due) setDueDate(moment(task.due));
-        setSelectedColor();
     }, [task.due, task.color]);
 
     const handleEditButtonClick = () => {
@@ -58,7 +56,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         setSelectedUser(user.id);
         const newTasks = tasks.map(t => {
             if (t === task) {
-                const newTask = { ...task, user: user.id }
+                const newTask = { ...task, user: user.id };
                 return newTask;
             } else {
                 return t;
@@ -66,28 +64,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
         });
         dispatch(setTaskList(newTasks));
         setShowUserModal(false);
-    }
-
-    const handleShowColorMenu = () => {
-        setShowColorMenu(true);
-    }
-
-    const handleHideColorMenu = () => {
-        setShowColorMenu(false);
-    }
-
-    const handleSetColor = (color) => {
-        setShowColorMenu(false)
-        const newTasks = tasks.map(t => {
-            if (t === task) {
-                const newTask = { ...task, color: color }
-                return newTask;
-            } else {
-                return t;
-            }
-        })
-        dispatch(setTaskList(newTasks));
-    }
+    };
 
     const isEditing = editingTask === task;
     const group = groups.find((g) => g.id === task.group);
@@ -135,7 +112,7 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                             <img src="/src/assets/checkbox-unselected.svg" />
                         )}
                     </div>
-                    <span className="item-label" style={{ backgroundColor: selectedColor }}>{task.label}</span>
+                    <span className="item-label">{task.label}</span>
                     <span className="item-label">{group && group.label}</span>
                     <span className={`item-due-date ${moment().isAfter(task.due) ? "item-due-date__urgent" : ""}`}>
                         Due: {moment(task.due).format('D MMM YYYY')}
@@ -170,24 +147,8 @@ function TaskItem({ task, onChangeIsChecked, onSaveEdit, onDelete }) {
                                 onClose={() => setShowUserModal(false)}
                             />
                         )}
-                        <div className="color-dropdown">
-                            <button className="color-dropdown-button" onClick={handleShowColorMenu}
-                                style={{ backgroundColor: task.color }}>
-                            </button>
-                            {showColorMenu && (
-                                <>
-                                    <div className="actions-menu-bg" onClick={handleHideColorMenu}></div>
-                                    <div className="color-dropdown-menu">
-                                        <div className="action-item" onClick={() => handleSetColor("#ffffff")}>White</div>
-                                        <div className="action-item" onClick={() => handleSetColor("#ff0000")}>Red</div>
-                                        <div className="action-item" onClick={() => handleSetColor("#ffaa00")}>Orange</div>
-                                        <div className="action-item" onClick={() => handleSetColor("#00ff00")}>Green</div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
+                        <ColorPicker task={task} />
                     </div>
-
                 </>
             )}
         </>
